@@ -1,0 +1,379 @@
+== skupper delete
+
+== skupper expose
+
+--address::
++
+--
+The Skupper address to expose
+--
+
+--aggregate::
++
+--
+The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+--
+
+--container-name::
++
+--
+Use a different container name
+--
+
+--enable-ingress-from-target-site::
++
+--
+Determines whether access to the Skupper service is enabled in the site the target was exposed through. Always (default) or Never are valid values.
+--
+
+--event-channel::
++
+--
+specified, this service will be a channel for multicast events.
+--
+
+--generate-tls-secrets::
++
+--
+specified, the service will be exposed over TLS
+--
+
+--host-ip::
++
+--
+Host IP address used to bind service ports
+--
+
+--host-port::
++
+--
+The host ports to bind with the service (you can also use colon to map service-port to a host-port).
+--
+
+--label::
++
+--
+Labels to the new service (comma separated list of key and value pairs split by equals (default [])
+--
+
+--port::
++
+--
+The ports to expose on
+--
+
+--protocol::
++
+--
+The protocol to proxy (tcp, http, or http2) (default "tcp")
+--
+
+--target-port::
++
+--
+The ports to target on pods
+--
+
+== skupper init
+
+--site-name::
++
+--
+Provide a specific name for this skupper installation
+--
+
+--ingress::
++
+--
+Setup Skupper ingress to one of: [external|none].
+
+Options include:
+
+* external
+* none
+--
+
+--router-mode::
++
+--
+Skupper router-mode (default "interior")
+--
+
+--labels::
++
+--
+Labels to add to resources created by skupper
+--
+
+--router-logging::
++
+--
+Logging settings for router. 'trace', 'debug', 'info' (default), 'notice', 'warning', and 'error' are valid values.
+--
+
+--ingress-host::
++
+--
+Hostname or alias by which the ingress route or proxy can be reached.
+--
+
+--ingress-bind-ip::
++
+--
+IP addresses in the host machines that will be bound to the inter-router and edge ports.
+--
+
+--bind-port::
++
+--
+ingress host binding port used for incoming links from sites using interior mode (default 55671)
+--
+
+--bind-port-edge::
++
+--
+ingress host binding port used for incoming links from sites using edge mode (default 45671)
+--
+
+--container-network::
++
+--
+container network name to be used (default "skupper")
+--
+
+--enable-ipv6::
++
+--
+IPV6 on the container network to be created (ignored when using an existing container network)
+--
+
+--podman-endpoint::
++
+--
+local podman endpoint to use
+--
+
+--enable-console::
++
+--
+skupper console must be used in conjunction with '--enable-flow-collector' flag
+--
+
+--console-auth::
++
+--
+Authentication mode for console(s). One of: 'internal', 'unsecured' (default "internal")
+--
+
+--console-user::
++
+--
+Skupper console user. Valid only when --console-auth=internal
+--
+
+--console-password::
++
+--
+Skupper console user. Valid only when --console-auth=internal
+--
+
+--enable-flow-collector::
++
+--
+cross-site flow collection for the application network
+--
+
+--bind-port-flow-collector::
++
+--
+ingress host binding port used for flow-collector and console (default 8010)
+--
+
+--flow-collector-record-ttl::
++
+--
+Time after which terminated flow records are deleted, i.e. those flow records that have an end time set. Default is 30 minutes.
+--
+
+--timeout::
++
+--
+Configurable timeout for site initialization (default 2m0s)
+--
+
+== skupper link create
+
+--cost::
++
+--
+Specify a cost for this link. (default 1)
+--
+
+--name::
++
+--
+Provide a specific name for the link (used when deleting it)
+--
+
+== skupper link delete
+
+== skupper link status
+
+--wait::
++
+--
+The number of seconds to wait for links to become connected
+--
+
+== skupper link
+
+== skupper revoke-access
+
+== skupper service bind
+
+--target-port::
++
+--
+The port the target is listening on (you can also use colon to map source-port to a target-port).
+--
+
+--tls-trust::
++
+--
+K8s secret name with the CA to expose the service over TLS
+--
+
+== skupper service create
+
+--aggregate::
++
+--
+The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+--
+
+--bridge-image::
++
+--
+The image to use for a bridge running external to the skupper router
+--
+
+--container-name::
++
+--
+Use a different container name
+--
+
+--enable-ingress::
++
+--
+Determines whether access to the Skupper service is enabled in this site. Valid values are Always (default) or Never.
+--
+
+--event-channel::
++
+--
+specified, this service will be a channel for multicast events.
+--
+
+--generate-tls-secrets::
++
+--
+specified, the service communication will be encrypted using TLS
+--
+
+--host-ip::
++
+--
+Host IP address used to bind service ports
+--
+
+--host-port::
++
+--
+The host ports to bind with the service (you can also use colon to map service-port to a host-port).
+--
+
+--label::
++
+--
+Labels to the new service (comma separated list of key and value pairs split by equals (default [])
+--
+
+--protocol::
++
+--
+The mapping in use for this service address (tcp, http, http2) (default "tcp")
+--
+
+--tls-cert::
++
+--
+K8s secret name with custom certificates to encrypt the communication using TLS
+--
+
+== skupper service delete
+
+== skupper service status
+
+--show-labels::
++
+--
+service labels
+--
+
+== skupper service unbind
+
+== skupper service
+
+== skupper status
+
+== skupper token create
+
+--ingress-host::
++
+--
+Hostname or alias by which the ingress route or proxy can be reached
+--
+
+--name::
++
+--
+Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")
+--
+
+== skupper token
+
+== skupper unexpose
+
+--address::
++
+--
+Skupper address the target was exposed as
+--
+
+== skupper update
+
+--dry-run::
++
+--
+prints the tasks to be performed, but does not run any action
+--
+
+--timeout::
++
+--
+Configurable timeout for site update (default 2m0s)
+--
+
+--verbose::
++
+--
+tasks and post tasks being executed
+--
+
+== skupper version manifest
+
+== skupper version
+
+== skupper
+
