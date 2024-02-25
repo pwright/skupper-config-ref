@@ -13,21 +13,15 @@ skupper token create <output-token-file> [flags]
 ### Options
 
 ```
-      --expiry duration     Expiration time for claim (only valid if --token-type=claim) (default 15m0s)
-  -h, --help                help for create
-      --name string         Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")
-  -p, --password string     A password for the claim (only valid if --token-type=claim). If not specified one will be generated.
-  -t, --token-type string   Type of token to create. Valid options are 'claim' or 'cert' (default "claim")
-      --uses int            Number of uses for which claim will be valid (only valid if --token-type=claim) (default 1)
+  -h, --help                  help for create
+      --ingress-host string   Hostname or alias by which the ingress route or proxy can be reached
+      --name string           Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")
 ```
 
 ### Options inherited from parent commands
 
 ```
-  -c, --context string      The kubeconfig context to use
-      --kubeconfig string   Path to the kubeconfig file to use
-  -n, --namespace string    The Kubernetes namespace to use
-      --platform string     The platform type to use [kubernetes, podman]
+      --platform string   The platform type to use [kubernetes, podman]
 ```
 
 ### SEE ALSO

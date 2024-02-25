@@ -1,30 +1,40 @@
 ## skupper unexpose
 
-Unexpose a set of pods previously exposed through a Skupper address
+Unexpose one or more network services
 
 ### Synopsis
 
-Unexpose a set of pods previously exposed through a Skupper address
+Unexpose one or more network services
 
 ```
-skupper unexpose [deployment <name>|pods <selector>|statefulset <statefulsetname>|service <name>|deploymentconfig <name>] [flags]
+skupper unexpose [host <hostname|ip>] [flags]
+```
+
+### Examples
+
+```
+
+        # unexposing a service running on the local machine
+        skupper unexpose host host.containers.internal --address my-service
+
+        # unexposing a local network IP
+        skupper unexpose host 10.0.0.1 --address my-service
+
+        # unexposing a podman container connected to the same podman network
+        skupper unexpose host my-container --address my-service
 ```
 
 ### Options
 
 ```
-      --address string            Skupper address the target was exposed as
-  -h, --help                      help for unexpose
-      --target-namespace string   Target namespace for exposed resource
+      --address string   Skupper address the target was exposed as
+  -h, --help             help for unexpose
 ```
 
 ### Options inherited from parent commands
 
 ```
-  -c, --context string      The kubeconfig context to use
-      --kubeconfig string   Path to the kubeconfig file to use
-  -n, --namespace string    The Kubernetes namespace to use
-      --platform string     The platform type to use [kubernetes, podman]
+      --platform string   The platform type to use [kubernetes, podman]
 ```
 
 ### SEE ALSO

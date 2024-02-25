@@ -13,17 +13,16 @@ skupper update [flags]
 ### Options
 
 ```
-      --force-restart   Restart skupper daemons even if image tag is not updated
-  -h, --help            help for update
+      --dry-run            only prints the tasks to be performed, but does not run any action
+  -h, --help               help for update
+      --timeout duration   Configurable timeout for site update (default 2m0s)
+      --verbose            displays tasks and post tasks being executed
 ```
 
 ### Options inherited from parent commands
 
 ```
-  -c, --context string      The kubeconfig context to use
-      --kubeconfig string   Path to the kubeconfig file to use
-  -n, --namespace string    The Kubernetes namespace to use
-      --platform string     The platform type to use [kubernetes, podman]
+      --platform string   The platform type to use [kubernetes, podman]
 ```
 
 ### SEE ALSO

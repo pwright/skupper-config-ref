@@ -21,10 +21,7 @@ skupper link status [<link-name>] [flags]
 ### Options inherited from parent commands
 
 ```
-  -c, --context string      The kubeconfig context to use
-      --kubeconfig string   Path to the kubeconfig file to use
-  -n, --namespace string    The Kubernetes namespace to use
-      --platform string     The platform type to use [kubernetes, podman]
+      --platform string   The platform type to use [kubernetes, podman]
 ```
 
 ### SEE ALSO
