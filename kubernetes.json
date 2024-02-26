@@ -1,0 +1,787 @@
+{
+    "skupper completion": {
+        "synopsis": "\\n\\nOutput shell completion code for bash.\\nThe shell code must be evaluated to provide interactive\\ncompletion of skupper commands.  This can be done by sourcing it from\\nthe .bash_profile. i.e.: $ source <(skupper completion)\\n\\n\\n```\\nskupper completion [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper debug dump": {
+        "synopsis": "\\nCollect and store skupper logs, config, etc. to compressed archive file\\n\\n```\\nskupper debug dump <filename>.tar.gz [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper debug events": {
+        "synopsis": "\\nShow events\\n\\n```\\nskupper debug events [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper debug": {
+        "synopsis": "\\nDebug skupper installation\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper debug policies": {
+        "synopsis": "\\nList active SkupperClusterPolicies\\n\\n```\\nskupper debug policies [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper debug service": {
+        "synopsis": "\\nCheck the internal state of a skupper exposed service\\n\\n```\\nskupper debug service <service-name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper delete": {
+        "synopsis": "\\ndelete will delete any skupper related objects from the namespace\\n\\n```\\nskupper delete [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper expose": {
+        "synopsis": "\\nExpose a set of pods through a Skupper address\\n\\n```\\nskupper expose [deployment <name>|pods <selector>|statefulset <statefulsetname>|service <name>|deploymentconfig <name>] [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "address",
+                "type": "string",
+                "description": "The Skupper address to expose"
+            },
+            {
+                "option": "aggregate",
+                "type": "string",
+                "description": "The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated."
+            },
+            {
+                "option": "headless",
+                "type": "Expose",
+                "description": "through a headless service (valid only for a statefulset target)"
+            },
+            {
+                "option": "port",
+                "type": "ints",
+                "description": "The ports to expose on"
+            },
+            {
+                "option": "protocol",
+                "type": "string",
+                "description": "The protocol to proxy (tcp, http, or http2) (default \"tcp\")"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway bind": {
+        "synopsis": "\\nBind a process to the service network\\n\\n```\\nskupper gateway bind <address> <host> <port...> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "aggregate",
+                "type": "string",
+                "description": "The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated."
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway delete": {
+        "synopsis": "\\nStop the gateway instance and remove the definition\\n\\n```\\nskupper gateway delete [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway export-config": {
+        "synopsis": "\\nExport the configuration for a gateway definition\\n\\n```\\nskupper gateway export-config <export-gateway-name> <output-path> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway expose": {
+        "synopsis": "\\nExpose a process to the service network (ensure gateway and cluster service)\\n\\n```\\nskupper gateway expose <address> <host> <port...> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "aggregate",
+                "type": "string",
+                "description": "The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated."
+            },
+            {
+                "option": "protocol",
+                "type": "string",
+                "description": "The protocol to gateway (tcp, http or http2). (default \"tcp\")"
+            },
+            {
+                "option": "type",
+                "type": "string",
+                "description": "The gateway type one of: 'service', 'docker', 'podman' (default \"service\")"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway forward": {
+        "synopsis": "\\nForward an address to the service network\\n\\n```\\nskupper gateway forward <address> <port...> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "aggregate",
+                "type": "string",
+                "description": "The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated."
+            },
+            {
+                "option": "loopback",
+                "type": "Forward",
+                "description": "from loopback only"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway generate-bundle": {
+        "synopsis": "\\nGenerate an installation bundle using a gateway config file\\n\\n```\\nskupper gateway generate-bundle <config-file> <output-path> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway init": {
+        "synopsis": "\\nInitialize a gateway to the service network\\n\\n```\\nskupper gateway init [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "config",
+                "type": "string",
+                "description": "The gateway config file to use for initialization"
+            },
+            {
+                "option": "type",
+                "type": "string",
+                "description": "The gateway type one of: 'service', 'docker', 'podman' (default \"service\")"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway": {
+        "synopsis": "\\nManage skupper gateway definitions\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway status": {
+        "synopsis": "\\nReport the status of the gateway(s) for the current skupper site\\n\\n```\\nskupper gateway status <gateway-name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway unbind": {
+        "synopsis": "\\nUnbind a process from the service network\\n\\n```\\nskupper gateway unbind <address> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway unexpose": {
+        "synopsis": "\\nUnexpose a process previously exposed to the service network\\n\\n```\\nskupper gateway unexpose <address> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper gateway unforward": {
+        "synopsis": "\\nStop forwarding an address to the service network\\n\\n```\\nskupper gateway unforward <address> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper init": {
+        "synopsis": "\\nSetup a router and other supporting objects to provide a functional skupper\\ninstallation that can then be connected to other skupper installations\\n\\n```\\nskupper init [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "ingress",
+                "type": "string",
+                "description": "Setup Skupper ingress to one of: [route|loadbalancer|nodeport|nginx-ingress-v1|contour-http-proxy|ingress|none]. If not specified route is used when available, otherwise loadbalancer is used."
+            },
+            {
+                "option": "labels",
+                "type": "strings",
+                "description": "Labels to add to resources created by skupper"
+            },
+            {
+                "option": "annotations",
+                "type": "strings",
+                "description": "Annotations to add to skupper pods"
+            },
+            {
+                "option": "routers",
+                "type": "int",
+                "description": "Number of router replicas to start"
+            },
+            {
+                "option": "timeout",
+                "type": "duration",
+                "description": "Configurable timeout for the ingress loadbalancer option. (default 2m0s)"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper link create": {
+        "synopsis": "\\nLinks this skupper site to the site that issued the token\\n\\n```\\nskupper link create <input-token-file> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "cost",
+                "type": "int32",
+                "description": "Specify a cost for this link. (default 1)"
+            },
+            {
+                "option": "name",
+                "type": "string",
+                "description": "Provide a specific name for the link (used when deleting it)"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper link delete": {
+        "synopsis": "\\nRemove specified link\\n\\n```\\nskupper link delete <name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper link": {
+        "synopsis": "\\nManage skupper links definitions\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper link status": {
+        "synopsis": "\\nCheck whether a link to another Skupper site is connected\\n\\n```\\nskupper link status [<link-name>] [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "wait",
+                "type": "int",
+                "description": "The number of seconds to wait for links to become connected"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper": {
+        "synopsis": "\\n\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper network": {
+        "synopsis": "\\nShow information about the sites and services included in the network.\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper network status": {
+        "synopsis": "\\nShows information about the current site, and connected sites.\\n\\n```\\nskupper network status [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper revoke-access": {
+        "synopsis": "\\nThis will invalidate all previously issued tokens and require that all\\nlinks to this site be re-established with new tokens.\\n\\n```\\nskupper revoke-access [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service bind": {
+        "synopsis": "\\nBind a target to a service\\n\\n```\\nskupper service bind <service-name> <target-type> <target-name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "headless",
+                "type": "Bind",
+                "description": "through a headless service (valid only for a statefulset target)"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service create": {
+        "synopsis": "\\nCreate a skupper service\\n\\n```\\nskupper service create <name> <port...> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "aggregate",
+                "type": "string",
+                "description": "The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated."
+            },
+            {
+                "option": "protocol",
+                "type": "string",
+                "description": "The mapping in use for this service address (tcp, http, http2) (default \"tcp\")"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service delete": {
+        "synopsis": "\\nDelete a skupper service\\n\\n```\\nskupper service delete <name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service label": {
+        "synopsis": "\\nManage service labels\\n\\n```\\nskupper service label <service> [labels...] [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service": {
+        "synopsis": "\\nManage skupper service definitions\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service status": {
+        "synopsis": "\\nList services exposed over the service network\\n\\n```\\nskupper service status [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service unbind": {
+        "synopsis": "\\nUnbind a target from a service\\n\\n```\\nskupper service unbind <service-name> <target-type> <target-name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper status": {
+        "synopsis": "\\nReport the status of the current Skupper site\\n\\n```\\nskupper status [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper token create": {
+        "synopsis": "\\nCreate a token.  The 'link create' command uses the token to establish a link from a remote Skupper site.\\n\\n```\\nskupper token create <output-token-file> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "expiry",
+                "type": "duration",
+                "description": "Expiration time for claim (only valid if --token-type=claim) (default 15m0s)"
+            },
+            {
+                "option": "name",
+                "type": "string",
+                "description": "Provide a specific identity as which connecting skupper installation will be authenticated (default \"skupper\")"
+            },
+            {
+                "option": "uses",
+                "type": "int",
+                "description": "Number of uses for which claim will be valid (only valid if --token-type=claim) (default 1)"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper token": {
+        "synopsis": "\\nManage skupper tokens\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper unexpose": {
+        "synopsis": "\\nUnexpose a set of pods previously exposed through a Skupper address\\n\\n```\\nskupper unexpose [deployment <name>|pods <selector>|statefulset <statefulsetname>|service <name>|deploymentconfig <name>] [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "address",
+                "type": "string",
+                "description": "Skupper address the target was exposed as"
+            },
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper update": {
+        "synopsis": "\\nUpdate the skupper site to 1.5.3\\n\\n```\\nskupper update [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper version manifest": {
+        "synopsis": "\\nReport the version of the Skupper images by default and the value of the environment variables\\n\\n```\\nskupper version manifest [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper version": {
+        "synopsis": "\\nReport the version of the Skupper CLI and services\\n\\n```\\nskupper version [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "kubeconfig",
+                "type": "string",
+                "description": "Path to the kubeconfig file to use"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    }
+}

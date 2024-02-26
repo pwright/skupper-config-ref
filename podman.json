@@ -1,0 +1,312 @@
+{
+    "skupper delete": {
+        "synopsis": "\\ndelete will delete any skupper related objects from the namespace\\n\\n```\\nskupper delete [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper expose": {
+        "synopsis": "\\nExpose one or more network services\\n\\n```\\nskupper expose [host <hostname|ip>] [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "address",
+                "type": "string",
+                "description": "The Skupper address to expose"
+            },
+            {
+                "option": "aggregate",
+                "type": "string",
+                "description": "The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated."
+            },
+            {
+                "option": "label",
+                "type": "stringToString",
+                "description": "Labels to the new service (comma separated list of key and value pairs split by equals (default [])"
+            },
+            {
+                "option": "port",
+                "type": "ints",
+                "description": "The ports to expose on"
+            },
+            {
+                "option": "protocol",
+                "type": "string",
+                "description": "The protocol to proxy (tcp, http, or http2) (default \"tcp\")"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper init": {
+        "synopsis": "\\nSetup a router and other supporting objects to provide a functional skupper\\ninstallation that can then be connected to other skupper installations\\n\\n```\\nskupper init [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "ingress",
+                "type": "string",
+                "description": "Setup Skupper ingress to one of: [external|none]."
+            },
+            {
+                "option": "labels",
+                "type": "strings",
+                "description": "Labels to add to resources created by skupper"
+            },
+            {
+                "option": "timeout",
+                "type": "duration",
+                "description": "Configurable timeout for site initialization (default 2m0s)"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper link create": {
+        "synopsis": "\\nLinks this skupper site to the site that issued the token\\n\\n```\\nskupper link create <input-token-file> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "cost",
+                "type": "int32",
+                "description": "Specify a cost for this link. (default 1)"
+            },
+            {
+                "option": "name",
+                "type": "string",
+                "description": "Provide a specific name for the link (used when deleting it)"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper link delete": {
+        "synopsis": "\\nRemove specified link\\n\\n```\\nskupper link delete <name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper link": {
+        "synopsis": "\\nManage skupper links definitions\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper link status": {
+        "synopsis": "\\nCheck whether a link to another Skupper site is connected\\n\\n```\\nskupper link status [<link-name>] [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "wait",
+                "type": "int",
+                "description": "The number of seconds to wait for links to become connected"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper": {
+        "synopsis": "\\n\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper revoke-access": {
+        "synopsis": "\\nThis will invalidate all previously issued tokens and require that all\\nlinks to this site be re-established with new tokens.\\n\\n```\\nskupper revoke-access [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service bind": {
+        "synopsis": "\\nBind a target to a service\\n\\n```\\nskupper service bind <service-name> <target-type> <target-name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service create": {
+        "synopsis": "\\nCreate a skupper service\\n\\n```\\nskupper service create <name> <port...> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "aggregate",
+                "type": "string",
+                "description": "The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated."
+            },
+            {
+                "option": "label",
+                "type": "stringToString",
+                "description": "Labels to the new service (comma separated list of key and value pairs split by equals (default [])"
+            },
+            {
+                "option": "protocol",
+                "type": "string",
+                "description": "The mapping in use for this service address (tcp, http, http2) (default \"tcp\")"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service delete": {
+        "synopsis": "\\nDelete a skupper service\\n\\n```\\nskupper service delete <name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service": {
+        "synopsis": "\\nManage skupper service definitions\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service status": {
+        "synopsis": "\\nList services exposed over the service network\\n\\n```\\nskupper service status [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper service unbind": {
+        "synopsis": "\\nUnbind a target from a service\\n\\n```\\nskupper service unbind <service-name> <target-type> <target-name> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper status": {
+        "synopsis": "\\nReport the status of the current Skupper site\\n\\n```\\nskupper status [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper token create": {
+        "synopsis": "\\nCreate a token.  The 'link create' command uses the token to establish a link from a remote Skupper site.\\n\\n```\\nskupper token create <output-token-file> [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "name",
+                "type": "string",
+                "description": "Provide a specific identity as which connecting skupper installation will be authenticated (default \"skupper\")"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper token": {
+        "synopsis": "\\nManage skupper tokens\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper unexpose": {
+        "synopsis": "\\nUnexpose one or more network services\\n\\n```\\nskupper unexpose [host <hostname|ip>] [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "address",
+                "type": "string",
+                "description": "Skupper address the target was exposed as"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper update": {
+        "synopsis": "\\nUpdate the skupper site to 1.5.3\\n\\n```\\nskupper update [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "timeout",
+                "type": "duration",
+                "description": "Configurable timeout for site update (default 2m0s)"
+            },
+            {
+                "option": "verbose",
+                "type": "displays",
+                "description": "tasks and post tasks being executed"
+            },
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper version manifest": {
+        "synopsis": "\\nReport the version of the Skupper images by default and the value of the environment variables\\n\\n```\\nskupper version manifest [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    },
+    "skupper version": {
+        "synopsis": "\\nReport the version of the Skupper CLI and services\\n\\n```\\nskupper version [flags]\\n```\\n",
+        "options": [
+            {
+                "option": "platform",
+                "type": "string",
+                "description": "The platform type to use [kubernetes, podman]"
+            }
+        ]
+    }
+}
