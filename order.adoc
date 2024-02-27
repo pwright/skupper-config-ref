@@ -1,8 +1,39 @@
-= Creating sites
+= Sites
+* init
+* status
+* update
+* delete
 
 = Linking sites
 
+* token
+
+* link
+* link status
+
 = Exposing services
 
-= Other
+* expose
+* service status 
+* service create 
+* service bind 
+* service label 
+* service unbind 
+* service delete 
+
+
+= Status
+
+* status
+* link status
+* network status
+* service status
+
+= Other options
+
+* platform
+* help
+* context
+* kubeconfig
+* namespace
 
