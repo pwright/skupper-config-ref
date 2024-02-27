@@ -1,0 +1,18 @@
+= Skupper command reference
+
+== Sites
+
+
+== Reference for `skupper init`
+
+Creating sites is good, use `--ingress none` to avoid problems
+
+
+== Troubleshooting
+
+== Reference for `skupper debug dump`
+
+Skupper allows you create a file containing all debug information.
+
+This command includes an option to specify the platform, for example `-- platform podman` when using a Podman site.
+

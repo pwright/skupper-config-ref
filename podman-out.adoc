@@ -1,0 +1,129 @@
+
+
+== Reference for `skupper delete`
+delete will delete any skupper related objects from the namespace  ``` skupper delete [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper expose`
+Expose one or more network services  ``` skupper expose [host <hostname|ip>] [flags] ```
+
+*Options:*
+* `--address`: The Skupper address to expose
+* `--aggregate`: The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+* `--label`: Labels to the new service (comma separated list of key and value pairs split by equals (default [])
+* `--port`: The ports to expose on
+* `--protocol`: The protocol to proxy (tcp, http, or http2) (default "tcp")
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper init`
+Setup a router and other supporting objects to provide a functional skupper installation that can then be connected to other skupper installations  ``` skupper init [flags] ```
+
+*Options:*
+* `--ingress`: Setup Skupper ingress to one of: [external|none].
+* `--labels`: Labels to add to resources created by skupper
+* `--timeout`: Configurable timeout for site initialization (default 2m0s)
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper link create`
+Links this skupper site to the site that issued the token  ``` skupper link create <input-token-file> [flags] ```
+
+*Options:*
+* `--cost`: Specify a cost for this link. (default 1)
+* `--name`: Provide a specific name for the link (used when deleting it)
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper link delete`
+Remove specified link  ``` skupper link delete <name> [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper link`
+Manage skupper links definitions
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper link status`
+Check whether a link to another Skupper site is connected  ``` skupper link status [<link-name>] [flags] ```
+
+*Options:*
+* `--wait`: The number of seconds to wait for links to become connected
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper`
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper revoke-access`
+This will invalidate all previously issued tokens and require that all links to this site be re-established with new tokens.  ``` skupper revoke-access [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper service bind`
+Bind a target to a service  ``` skupper service bind <service-name> <target-type> <target-name> [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper service create`
+Create a skupper service  ``` skupper service create <name> <port...> [flags] ```
+
+*Options:*
+* `--aggregate`: The aggregation strategy to use. One of 'json' or 'multipart'. If specified requests to this service will be sent to all registered implementations and the responses aggregated.
+* `--label`: Labels to the new service (comma separated list of key and value pairs split by equals (default [])
+* `--protocol`: The mapping in use for this service address (tcp, http, http2) (default "tcp")
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper service delete`
+Delete a skupper service  ``` skupper service delete <name> [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper service`
+Manage skupper service definitions
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper service status`
+List services exposed over the service network  ``` skupper service status [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper service unbind`
+Unbind a target from a service  ``` skupper service unbind <service-name> <target-type> <target-name> [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper status`
+Report the status of the current Skupper site  ``` skupper status [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper token create`
+Create a token.  The 'link create' command uses the token to establish a link from a remote Skupper site.  ``` skupper token create <output-token-file> [flags] ```
+
+*Options:*
+* `--name`: Provide a specific identity as which connecting skupper installation will be authenticated (default "skupper")
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper token`
+Manage skupper tokens
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper unexpose`
+Unexpose one or more network services  ``` skupper unexpose [host <hostname|ip>] [flags] ```
+
+*Options:*
+* `--address`: Skupper address the target was exposed as
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper update`
+Update the skupper site to 1.5.3  ``` skupper update [flags] ```
+
+*Options:*
+* `--timeout`: Configurable timeout for site update (default 2m0s)
+* `--verbose`: tasks and post tasks being executed
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper version manifest`
+Report the version of the Skupper images by default and the value of the environment variables  ``` skupper version manifest [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
+== Reference for `skupper version`
+Report the version of the Skupper CLI and services  ``` skupper version [flags] ```
+
+*Options:*
+* `--platform`: The platform type to use [kubernetes, podman]
