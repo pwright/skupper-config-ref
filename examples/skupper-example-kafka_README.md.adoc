@@ -1,13 +1,13 @@
 = Accessing Kafka using Skupper
 
-image::https://github.com/skupperproject/skupper-example-kafka/actions/workflows/main.yaml/badge.svg[main,link=https://github.com/skupperproject/skupper-example-kafka/actions/workflows/main.yaml]
 
-[discrete]
-==== Use public cloud resources to process data from a private Kafka cluster
 
-This example is part of a https://skupper.io/examples/index.html[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
 
-== Overview
+Use public cloud resources to process data from a private Kafka cluster
+
+This example is part of a {examplesLink}[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
+
+.Overview
 
 This example is a simple Kafka application that shows how you can use Skupper to access a Kafka cluster at a remote site without exposing it to the public internet.
 
@@ -23,29 +23,39 @@ The Kafka client is a Java application built using https://quarkus.io/[Quarkus].
 
 The example uses two Kubernetes namespaces, "private" and "public", to represent the private data center and public cloud.
 
-== Prerequisites
+Prerequisites
 
 * The `kubectl` command-line tool, version 1.15 or later (https://kubernetes.io/docs/tasks/tools/install-kubectl/[installation guide])
 * Access to at least one Kubernetes cluster, from https://skupper.io/start/kubernetes.html[any provider you choose]
 
-== Step 1: Install the Skupper command-line tool
+--
+.Procedure
+--
+
+. Install the Skupper command-line tool
++
+--
 
 This example uses the Skupper command-line tool to deploy Skupper.
 You need to install the `skupper` command only once for each development environment.
 
-On Linux or Mac, you can use the install script (inspect it https://github.com/skupperproject/skupper-website/blob/main/input/install.sh[here]) to download and extract the command:
+include::install.adoc[]
 
 [,shell]
 ----
-curl https://skupper.io/install.sh | sh
+sudo dnf install skupper-cli
 ----
 
-The script installs the command under your home directory.
-It prompts you to add the command to your path if necessary.
 
-For Windows and other installation options, see https://skupper.io/install/[Installing Skupper].
 
-== Step 2: Set up your namespaces
+
+
+
+--
+
+. Set up your namespaces
++
+--
 
 Skupper is designed for use with multiple Kubernetes namespaces, usually on different clusters.
 The `skupper` and `kubectl` commands use your https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/[kubeconfig] and current context to select the namespace where they operate.
@@ -63,14 +73,14 @@ Then create the namespace you wish to use and set the namespace on your current 
 NOTE: The login procedure varies by provider.
 See the documentation for yours:
 
-* https://skupper.io/start/minikube.html#cluster-access[Minikube]
+
 * https://skupper.io/start/eks.html#cluster-access[Amazon Elastic Kubernetes Service (EKS)]
 * https://skupper.io/start/aks.html#cluster-access[Azure Kubernetes Service (AKS)]
 * https://skupper.io/start/gke.html#cluster-access[Google Kubernetes Engine (GKE)]
 * https://skupper.io/start/ibmks.html#cluster-access[IBM Kubernetes Service]
 * https://skupper.io/start/openshift.html#cluster-access[OpenShift]
 
-_*Public:*_
+*Public:*
 
 [,shell]
 ----
@@ -80,7 +90,7 @@ kubectl create namespace public
 kubectl config set-context --current --namespace public
 ----
 
-_*Private:*_
+*Private:*
 
 [,shell]
 ----
@@ -90,11 +100,15 @@ kubectl create namespace private
 kubectl config set-context --current --namespace private
 ----
 
-== Step 3: Deploy the Kafka cluster
+--
+
+. Deploy the Kafka cluster
++
+--
 
 In Private, use the `kubectl create` and `kubectl apply` commands with the listed YAML files to install the operator and deploy the cluster and topic.
 
-_*Private:*_
+*Private:*
 
 [,shell]
 ----
@@ -103,7 +117,7 @@ kubectl apply -f server/cluster1.yaml
 kubectl wait --for condition=ready --timeout 900s kafka/cluster1
 ----
 
-_Sample output:_
+Sample output:
 
 [,console]
 ----
@@ -167,9 +181,13 @@ spec:
 
 See https://strimzi.io/docs/operators/in-development/configuring.html#property-listener-config-broker-reference[Advertised addresses for brokers] for more information.
 
-== Step 4: Create your sites
+--
 
-A Skupper _site_ is a location where components of your application are running.
+. Create your sites
++
+--
+
+A Skupper _site is a location where components of your application are running.
 Sites are linked together to form a network for your application.
 In Kubernetes, a site is associated with a namespace.
 
@@ -177,9 +195,9 @@ For each namespace, use `skupper init` to create a site.
 This deploys the Skupper router and controller.
 Then use `skupper status` to see the outcome.
 
-NOTE: If you are using Minikube, you need to https://skupper.io/start/minikube.html#running-minikube-tunnel[start minikube tunnel] before you run `skupper init`.
 
-_*Public:*_
+
+*Public:*
 
 [,shell]
 ----
@@ -187,7 +205,7 @@ skupper init
 skupper status
 ----
 
-_Sample output:_
+Sample output:
 
 [,console]
 ----
@@ -200,7 +218,7 @@ $ skupper status
 Skupper is enabled for namespace "public". It is not connected to any other sites. It has no exposed services.
 ----
 
-_*Private:*_
+*Private:*
 
 [,shell]
 ----
@@ -208,7 +226,7 @@ skupper init
 skupper status
 ----
 
-_Sample output:_
+Sample output:
 
 [,console]
 ----
@@ -223,9 +241,13 @@ Skupper is enabled for namespace "private". It is not connected to any other sit
 
 As you move through the steps below, you can use `skupper status` at any time to check your progress.
 
-== Step 5: Link your sites
+--
 
-A Skupper _link_ is a channel for communication between two sites.
+. Link your sites
++
+--
+
+A Skupper _link is a channel for communication between two sites.
 Links serve as a transport for application connections and requests.
 
 Creating a link requires use of two `skupper` commands in conjunction, `skupper token create` and `skupper link create`.
@@ -234,21 +256,21 @@ The `skupper token create` command generates a secret token that signifies permi
 The token also carries the link details.
 Then, in a remote site, The `skupper link create` command uses the token to create a link to the site that generated it.
 
-NOTE: The link token is truly a _secret_.
+NOTE: The link token is truly a _secret.
 Anyone who has the token can link to your site.
 Make sure that only those you trust have access to it.
 
 First, use `skupper token create` in site Public to generate the token.
 Then, use `skupper link create` in site Private to link the sites.
 
-_*Public:*_
+*Public:*
 
 [,shell]
 ----
 skupper token create ~/secret.token
 ----
 
-_Sample output:_
+Sample output:
 
 [,console]
 ----
@@ -256,14 +278,14 @@ $ skupper token create ~/secret.token
 Token written to ~/secret.token
 ----
 
-_*Private:*_
+*Private:*
 
 [,shell]
 ----
 skupper link create ~/secret.token
 ----
 
-_Sample output:_
+Sample output:
 
 [,console]
 ----
@@ -275,20 +297,24 @@ Check the status of the link using 'skupper link status'.
 If your terminal sessions are on different machines, you may need to use `scp` or a similar tool to transfer the token securely.
 By default, tokens expire after a single use or 15 minutes after creation.
 
-== Step 6: Expose the Kafka cluster
+--
+
+. Expose the Kafka cluster
++
+--
 
 In Private, use `skupper expose` with the `--headless` option to expose the Kafka cluster as a headless service on the Skupper network.
 
 Then, in Public, use the `kubectl get service` command to check that the `cluster1-kafka-brokers` service appears after a moment.
 
-_*Private:*_
+*Private:*
 
 [,shell]
 ----
 skupper expose statefulset/cluster1-kafka --headless --port 9092
 ----
 
-_Sample output:_
+Sample output:
 
 [,console]
 ----
@@ -296,14 +322,14 @@ $ skupper expose statefulset/cluster1-kafka --headless --port 9092
 statefulset cluster1-kafka exposed as cluster1-kafka-brokers
 ----
 
-_*Public:*_
+*Public:*
 
 [,shell]
 ----
 kubectl get service/cluster1-kafka-brokers
 ----
 
-_Sample output:_
+Sample output:
 
 [,console]
 ----
@@ -312,22 +338,26 @@ NAME                     TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cluster1-kafka-brokers   ClusterIP   None         <none>        9092/TCP   2s
 ----
 
-== Step 7: Run the client
+--
+
+. Run the client
++
+--
 
 Use the `kubectl run` command to execute the client program in Public.
 
-_*Public:*_
+*Public:*
 
 [,shell]
 ----
-kubectl run client --attach --rm --restart Never --image quay.io/skupper/kafka-example-client --env BOOTSTRAP_SERVERS=cluster1-kafka-brokers:9092
+kubectl run client --attach --rm --restart Never --image quay.io/skupper/kafka-example-client --env BOOTSTRAPSERVERS=cluster1-kafka-brokers:9092
 ----
 
-_Sample output:_
+Sample output:
 
 [,console]
 ----
-$ kubectl run client --attach --rm --restart Never --image quay.io/skupper/kafka-example-client --env BOOTSTRAP_SERVERS=cluster1-kafka-brokers:9092
+$ kubectl run client --attach --rm --restart Never --image quay.io/skupper/kafka-example-client --env BOOTSTRAPSERVERS=cluster1-kafka-brokers:9092
 [...]
 Received message 1
 Received message 2

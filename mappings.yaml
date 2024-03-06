@@ -1,0 +1,81 @@
+# Replacements
+
+simple_mappings:
+  "== Overview": ".Overview"
+  "== Prerequisites": "Prerequisites"
+  # example links mapping
+  "https://skupper.io/examples/index.html": "{examplesLink}"
+
+  # install material
+  "curl https://skupper.io/install.sh | sh": "sudo dnf install skupper-cli"
+  "The script installs the command under your home directory.": ""
+  "It prompts you to add the command to your path if necessary.": ""
+  "For Windows and other installation options, see https://skupper.io/install/[Installing Skupper].": ""
+
+  "[discrete]": ""
+ 
+  
+regex_mappings:
+  # titles
+  - pattern: "==== A (.*)"
+    replacement: "A \\1"
+  - pattern: "==== Use (.*)"
+    replacement: "Use \\1"
+  - pattern: "==== Sec(.*)"
+    replacement: "Sec\\1"
+  
+  # steps
+  - pattern: "(== Step 1: .*)"
+    replacement: "--\n.Procedure\n\\1"
+  - pattern: "== Step (.*): (.*)"
+    replacement: "--\n\n. \\2\n+\n--"
+  # find and remove images
+  - pattern: "image::.*"
+    replacement: ""
+  # find the context and change formatting
+  - pattern: "_*(.*):*_"
+    replacement: "\\1"
+
+  # find the install material
+  - pattern:  ".*use the install script.*"
+    replacement: "include::install.adoc[]"
+
+  # platforms
+  - pattern: ".*minikube.*"
+    replacement: ""
+
+# Patterns
+
+#  - pattern: "(foo)(bar)"
+#    replacement: "\\2\\1"  # Swaps 'foo' and 'bar'
+#  - pattern: "([a-zA-Z]+)\\s+\\1"
+#    replacement: "\\1"  # Removes repeated words
+
+# Example simple mappings
+
+# Basic text replacement
+#"foo": "bar"  # Replace instances of 'foo' with 'bar'
+
+# Handling special characters
+#"#oldComment": "#newComment"  # Replace old comment symbol with new one (e.g., for different programming languages)
+
+# Escaping characters that might be interpreted by YAML
+#"\\#important": "\\#critical"  # Replace '#important' with '#critical', using backslashes to escape the hash
+
+# Replacing phrases
+#"Hello, world!": "Greetings, universe!"  # Replace the classic hello world with a more universal greeting
+
+# Mapping for code or markup adjustments
+#"<b>": "**"  # Replace HTML bold tags with Markdown syntax for bold
+#"</b>": "**"  # Same for closing bold tag
+
+# Handling case-sensitive replacements
+#"Python": "python"  # Enforce lowercase for the word 'Python'
+
+# Complex replacements involving special characters or formatting
+#"error:": "ERROR:"  # Highlight the word 'error:' by making it uppercase
+
+# Note on adding new mappings:
+# - Ensure that the key does not conflict with existing keys.
+# - Test your mappings on sample text to ensure they perform as expected.
+# - For complex mappings involving special YAML characters, consider using quotes or escaping characters as shown above.
