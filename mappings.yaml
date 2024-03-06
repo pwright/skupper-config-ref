@@ -23,6 +23,10 @@ regex_mappings:
     replacement: "Use \\1"
   - pattern: "==== Sec(.*)"
     replacement: "Sec\\1"
+  - pattern: "==== Twit(.*)"
+    replacement: "Twit\\1"
+  - pattern: "==== Perform(.*)"
+    replacement: "Perform\\1"
   
   # steps
   - pattern: "(== Step 1: .*)"
@@ -44,7 +48,7 @@ regex_mappings:
   - pattern: ".*minikube.*"
     replacement: ""
 
-# Patterns
+# Example patterns
 
 #  - pattern: "(foo)(bar)"
 #    replacement: "\\2\\1"  # Swaps 'foo' and 'bar'

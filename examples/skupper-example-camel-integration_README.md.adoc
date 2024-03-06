@@ -1,7 +1,7 @@
 = Skupper Camel Integration Example
 
 
-==== Twitter, Telegram and PostgreSQL integration routes deployed across Kubernetes clusters using Skupper
+Twitter, Telegram and PostgreSQL integration routes deployed across Kubernetes clusters using Skupper
 
 This example is part of a {examplesLink}[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
 
@@ -352,14 +352,3 @@ Sample output:
 ----
 "[1] 2022-03-10 19:35:08,397 INFO  [postgresql-sink-1] (Camel (camel-1) thread #0 - twitter-search://skupper) Testing skupper"
 ----
-
-== Summary
-
-This example locates the different camel integrations in different namespaces, on different clusters.
-This means that they have no way to communicate with the database deployed in the private cluster unless they are exposed to the public internet.
-
-Introducing Skupper into each namespace allows us to create a virtual application network that can connect services in different clusters.
-Any service exposed on the application network is represented as a local service in all of the linked namespaces.
-
-The database is located in `private1`, but the TelegramRoute integration in `public2` can "see" it as if it were local.
-When the integration pulls the database, Skupper forwards the request to the namespace where the database is running and routes the response back to the integration component.

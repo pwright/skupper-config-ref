@@ -321,37 +321,3 @@ kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.ite
 kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
 ~~~
 
-## Accessing the web console
-
-Skupper includes a web console you can use to view the application
-network.  To access it, use `skupper status` to look up the URL of
-the web console.  Then use `kubectl get
-secret/skupper-console-users` to look up the console admin
-password.
-
-**Note:** The `<console-url>` and `<password>` fields in the
-following output are placeholders.  The actual values are specific
-to your environment.
-
-_**Console for public1:**_
-
-~~~ shell
-skupper status
-kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d
-~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper status
-Skupper is enabled for namespace "public1". It is connected to 1 other site. It has 1 exposed service.
-The site console url is: <console-url>
-The credentials for internal console-auth mode are held in secret: 'skupper-console-users'
-
-$ kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d
-<password>
-~~~
-
-Navigate to `<console-url>` in your browser.  When prompted, log
-in as user `admin` and enter the password.
-
