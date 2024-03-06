@@ -13,22 +13,6 @@ across cloud providers, data centers, and edge sites.
 [website]: https://skupper.io/
 [examples]: https://skupper.io/examples/index.html
 
-#### Contents
-
-* [Overview](#overview)
-* [Prerequisites](#prerequisites)
-* [Step 1: Install the Skupper command-line tool](#step-1-install-the-skupper-command-line-tool)
-* [Step 2: Set up your clusters](#step-2-set-up-your-clusters)
-* [Step 3: Deploy the frontend and backend](#step-3-deploy-the-frontend-and-backend)
-* [Step 4: Create your sites](#step-4-create-your-sites)
-* [Step 5: Link your sites](#step-5-link-your-sites)
-* [Step 6: Expose the backend](#step-6-expose-the-backend)
-* [Step 7: Access the frontend](#step-7-access-the-frontend)
-* [Cleaning up](#cleaning-up)
-* [Summary](#summary)
-* [Next steps](#next-steps)
-* [About this example](#about-this-example)
-
 ## Overview
 
 This example is a very simple multi-service HTTP application
@@ -304,26 +288,6 @@ kubectl port-forward deployment/frontend 8080:8080
 You can now access the web interface by navigating to
 [http://localhost:8080](http://localhost:8080) in your browser.
 
-## Cleaning up
-
-To remove Skupper and the other resources from this exercise, use
-the following commands:
-
-_**West:**_
-
-~~~ shell
-skupper delete
-kubectl delete service/frontend
-kubectl delete deployment/frontend
-~~~
-
-_**East:**_
-
-~~~ shell
-skupper delete
-kubectl delete deployment/backend
-~~~
-
 ## Summary
 
 This example locates the frontend and backend services in different
@@ -344,20 +308,3 @@ the frontend.
 
 <img src="images/sequence.svg" width="640"/>
 
-## Next steps
-
-Check out the other [examples][examples] on the Skupper website.
-
-## About this example
-
-This example was produced using [Skewer][skewer], a library for
-documenting and testing Skupper examples.
-
-[skewer]: https://github.com/skupperproject/skewer
-
-Skewer provides utility functions for generating the README and
-running the example steps.  Use the `./plano` command in the project
-root to see what is available.
-
-To quickly stand up the example using Minikube, try the `./plano demo`
-command.

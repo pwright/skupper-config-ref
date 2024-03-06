@@ -31,10 +31,8 @@ As an example, the cluster deployment might be comprised of:
 
 While the detailed steps are not included here, this demonstration can alternatively be performed with three separate namespaces on a single cluster.
 
-. Set up the demo
-+
---
---
+== Step 1: Set up the demo
+
 . On your local machine, make a directory for this tutorial and clone the example repo:
 +
 [,bash]
@@ -43,7 +41,7 @@ mkdir boutique-demo
 cd boutique-demo
 git clone https://github.com/skupperproject/skupper-example-grpc.git
 ----
---
+
 . Prepare the target clusters.
  .. On your local machine, log in to each cluster in a separate terminal session.
  .. In each cluster, create a namespace to use for the demo.
@@ -53,11 +51,9 @@ git clone https://github.com/skupperproject/skupper-example-grpc.git
 ----
 kubectl config set-context --current --namespace <namespace>
 ----
---
-. Deploy the Virtual Application Network
-+
---
---
+
+== Step 2: Deploy the Virtual Application Network
+
 On each cluster, using the `skupper` tool, define the Virtual Application Network and the connectivity for the peer clusters.
 
 . In the terminal for the first public cluster, deploy the *public1* application router.
@@ -68,7 +64,7 @@ Create a connection token for connections from the *public2* cluster and the *pr
 skupper init --site-name public1
 skupper token create public1-token.yaml --uses 2
 ----
---
+
 . In the terminal for the second public cluster, deploy the *public2* application router, create a connection token for connections from the *private1* cluser and connect to the *public1* cluster:
 +
 [,bash]
@@ -77,7 +73,7 @@ skupper init --site-name public2
 skupper token create public2-token.yaml
 skupper link create public1-token.yaml
 ----
---
+
 . In the terminal for the private cluster, deploy the *private1* application router and define its connections to the *public1* and *public2* cluster
 +
 [,bash]
@@ -86,18 +82,16 @@ skupper init --site-name private1
 skupper link create public1-token.yaml
 skupper link create public2-token.yaml
 ----
---
+
 . In each of the cluster terminals, verify connectivity has been established
 +
 [,bash]
 ----
 skupper link status
 ----
---
-. Deploy the application microservices
-+
---
---
+
+== Step 3: Deploy the application microservices
+
 After creating the Virtual Application Network, deploy the grpc based microservices for the `Online Boutique` application.
 There are three `deployment .yaml` files labelled _a, b, and c_.
 These files (arbitrarily) define a subset of the application microservices to deploy to a cluster.
@@ -121,25 +115,23 @@ These files (arbitrarily) define a subset of the application microservices to de
 ----
 kubectl apply -f skupper-example-grpc/deployment-ms-a.yaml
 ----
---
+
 . In the terminal for the *public1* cluster, deploy the following:
 +
 [,bash]
 ----
 kubectl apply -f skupper-example-grpc/deployment-ms-b.yaml
 ----
---
+
 . In the terminal for the *public2* cluster, deploy the following:
 +
 [,bash]
 ----
 kubectl apply -f skupper-example-grpc/deployment-ms-c.yaml
 ----
---
-. Expose the microservices to the Virtual Application Network
-+
---
---
+
+== Step 4: Expose the microservices to the Virtual Application Network
+
 There are three script files labelled _-a, -b, and -c_.
 These files expose the services created above to join the Virtual Application Network.
 Note that the frontend service is not assigned to the Virtual Application Network as it is setup for external web access.
@@ -163,25 +155,23 @@ Note that the frontend service is not assigned to the Virtual Application Networ
 ----
 skupper-example-grpc/expose-deployments-a.sh
 ----
---
+
 . In the terminal for the *public1* cluster, execute the following annotation script:
 +
 [,bash]
 ----
 skupper-example-grpc/expose-deployments-b.sh
 ----
---
+
 . In the terminal for the *public2* cluster, execute the following annotation script:
 +
 [,bash]
 ----
 skupper-example-grpc/expose-deployments-c.sh
 ----
---
-. Access The Boutique Shop Application
-+
---
---
+
+== Step 5: Access The Boutique Shop Application
+
 The web frontend for the `Online Boutique` application can be accessed via the _frontend-external_ service.
 In the terminal for the *private1* cluster, start a firefox browser and access the shop UI.
 
@@ -189,13 +179,11 @@ In the terminal for the *private1* cluster, start a firefox browser and access t
 ----
    /usr/bin/firefox --new-window  "http://$(kubectl get service frontend-external -o=jsonpath='{.spec.clusterIP}')/"
 ----
---
+
 Open a browser and use the url provided above to access the `Online Boutique`.
 
-. Run the load generator
-+
---
---
+== Step 6: Run the load generator
+
 The `Online Boutique` application has a load generator that creates realistic usage patterns on the website.
 
 . In the terminal for the *private1* cluster, deploy the load generator:
@@ -204,21 +192,21 @@ The `Online Boutique` application has a load generator that creates realistic us
 ----
 kubectl apply -f skupper-example-grpc/deployment-loadgenerator.yaml
 ----
---
+
 . In the terminal for the *private1* cluster, observe the output from the load generator:
 +
 [,bash]
 ----
 kubectl logs -f deploy/loadgenerator
 ----
---
+
 . In the terminal for the *private1* cluster, stop the load generator:
 +
 [,bash]
 ----
 kubectl delete -f skupper-example-grpc/deployment-loadgenerator.yaml
 ----
---
+
 == Cleaning Up
 
 Restore your cluster environment by returning the resources created in the demonstration.
@@ -232,7 +220,7 @@ skupper-example-grpc/unexpose-deployments-a.sh
 kubectl delete -f skupper-example-grpc/deployment-ms-a.yaml
 skupper delete
 ----
---
+
 . In the terminal for the *public1* cluster, delete the resources:
 +
 [,bash]
@@ -241,7 +229,7 @@ skupper-example-grpc/unexpose-deployments-b.sh
 kubectl delete -f skupper-example-grpc/deployment-ms-b.yaml
 skupper delete
 ----
---
+
 . In the terminal for the *public2* cluster, delete the resources:
 +
 [,bash]
@@ -250,7 +238,7 @@ skupper-example-grpc/unexpose-deployments-c.sh
 kubectl delete -f skupper-example-grpc/deployment-ms-c.yaml
 skupper delete
 ----
---
+
 == Next Steps
 
 * https://github.com/skupperproject/skupper-example-bookinfo[Try the example for multi-cluster distributed web services]

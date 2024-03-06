@@ -202,7 +202,3 @@ Restore your cluster environment by returning the resources created in the demon
    $ skupper delete
    ```
 
-## Next steps
-
- - [Try the example for multi-cluster MongoDB replica set deployment](https://github.com/skupperproject/skupper-example-mongodb-replica-set)
- - [Find more examples](https://skupper.io/examples/)

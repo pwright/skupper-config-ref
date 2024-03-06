@@ -32,10 +32,8 @@ As an example, the cluster deployment might be comprised of:
 
 While the detailed steps are not included here, this demonstration can alternatively be performed with three separate namespaces on a single cluster.
 
-. Set up the demo
-+
---
---
+== Step 1: Set up the demo
+
 . On your local machine, make a directory for this tutorial and clone the example repo:
 +
 [,bash]
@@ -44,16 +42,14 @@ mkdir pg-demo
 cd pg-demo
 git clone https://github.com/skupperproject/skupper-example-postgresql.git
 ----
---
+
 . Prepare the target clusters.
  .. On your local machine, log in to each cluster in a separate terminal session.
  .. In each cluster, create a namespace to use for the demo.
  .. In each cluster, set the kubectl config context to use the demo namespace https://kubernetes.io/docs/reference/kubectl/cheatsheet/[(see kubectl cheat sheet)]
 
-. Deploy the Virtual Application Network
-+
---
---
+== Step 2: Deploy the Virtual Application Network
+
 On each cluster, define the virtual application network and the connectivity for the peer clusters.
 
 . In the terminal for the first public cluster, deploy the *public1* application router.
@@ -64,7 +60,7 @@ Create connection token for connections from the *public2* cluster and the *priv
 skupper init --site-name public1
 skupper token create --uses=2 public1-token.yaml
 ----
---
+
 . In the terminal for the second public cluster, deploy the *public2* application router, create a connection token for a connection from the *private1* cluster and link to the *public1* cluster:
 +
 [,bash]
@@ -73,7 +69,7 @@ skupper init --site-name public2
 skupper token create public2-token.yaml
 skupper link create public1-token.yaml
 ----
---
+
 . In the terminal for the private cluster, deploy the *private1* application router and create its links to the *public1* and *public2* cluster
 +
 [,bash]
@@ -82,18 +78,16 @@ skupper init --site-name private1
 skupper link create public1-token.yaml
 skupper link create public2-token.yaml
 ----
---
+
 . In each of the cluster terminals, verify connectivity has been established
 +
 [,bash]
 ----
 skupper link status
 ----
---
-. Deploy the PostgreSQL service
-+
---
---
+
+== Step 3: Deploy the PostgreSQL service
+
 After creating the application router network, deploy the PostgreSQL service.
 The *private1* cluster will be used to deploy the PostgreSQL server and the *public1* and *public2* clusters will be used to enable client communications to the server on the *private1* cluster.
 
@@ -103,18 +97,16 @@ The *private1* cluster will be used to deploy the PostgreSQL server and the *pub
 ----
 kubectl apply -f ~/pg-demo/skupper-example-postgresql/deployment-postgresql-svc.yaml
 ----
---
-. Create Skupper service for the Virtual Application Network
-+
---
---
+
+== Step 4: Create Skupper service for the Virtual Application Network
+
 . In the terminal for the *private1* cluster, expose the postgresql-svc service:
 +
 [,bash]
 ----
 skupper service create postgresql 5432
 ----
---
+
 . In each of the cluster terminals, verify the service created is present
 +
 [,bash]
@@ -124,17 +116,15 @@ skupper service status
 +
 Note that the mapping for the service address defaults to `tcp`.
 
-. Bind the Skupper service to the deployment target on the Virtual Application Network
-+
---
---
+== Step 5: Bind the Skupper service to the deployment target on the Virtual Application Network
+
 . In the terminal for the *private1* cluster, expose the postgresql-svc service:
 +
 [,bash]
 ----
 skupper service bind postgresql deployment postgresql
 ----
---
+
 . In the *private1* cluster terminal, verify the service bind to the target
 +
 [,bash]
@@ -144,10 +134,8 @@ skupper service status
 +
 Note that the *private1* is the only cluster to provide a target.
 
-. Create interactive pod with PostgreSQL client utilities
-+
---
---
+== Step 6: Create interactive pod with PostgreSQL client utilities
+
 . From each cluster terminial, create a pod that contains the PostgreSQL client utilities:
 +
 [,bash]
@@ -158,18 +146,16 @@ kubectl run pg-shell -i --tty --image quay.io/skupper/simple-pg \
 --env="PGHOST=$(kubectl get service postgresql -o=jsonpath='{.spec.clusterIP}')" \
 -- bash
 ----
---
+
 . Note that if the session is ended, it can be resumed with the following:
 +
 [,bash]
 ----
 kubectl attach pg-shell -c pg-shell -i -t
 ----
---
-. Create a Database, Create a Table, Insert Values
-+
---
---
+
+== Step 7: Create a Database, Create a Table, Insert Values
+
 Using the 'pg-shell' pod running on each cluster, operate on the database:
 
 . Create a database called 'markets' from the *private1* cluster
@@ -178,7 +164,7 @@ Using the 'pg-shell' pod running on each cluster, operate on the database:
 ----
 bash-5.0$ createdb -e markets
 ----
---
+
 . Create a table called 'product' in the 'markets' database from the *public1* cluster
 +
 [,bash]
@@ -190,7 +176,7 @@ markets# create table if not exists product (
            sku             CHAR(8)
            );
 ----
---
+
 . Insert values into the `product` table in the `markets` database from the *public2* cluster:
 +
 [,bash]
@@ -201,7 +187,7 @@ markets# INSERT INTO product VALUES(DEFAULT, 'Banana', '4011');
 markets# INSERT INTO product VALUES(DEFAULT, 'Pear, Bartlett', '4214');
 markets# INSERT INTO product VALUES(DEFAULT, 'Orange', '4056');
 ----
---
+
 . From any cluster, access the `product` tables in the `markets` database to view contents
 +
 [,bash]
@@ -209,7 +195,7 @@ markets# INSERT INTO product VALUES(DEFAULT, 'Orange', '4056');
 bash-5.0$ psql -d markets
 markets# SELECT * FROM product;
 ----
---
+
 == Cleaning Up
 
 Restore your cluster environment by returning the resources created in the demonstration.
@@ -222,7 +208,7 @@ On each cluster, delete the demo resources and the virtual application network:
 $ kubectl delete pod pg-shell
 $ skupper delete
 ----
---
+
 . In the terminal for the *public2* cluster, delete the resources:
 +
 [,bash]
@@ -230,7 +216,7 @@ $ skupper delete
 $ kubectl delete pod pg-shell
 $ skupper delete
 ----
---
+
 . In the terminal for the *private1* cluster, delete the resources:
 +
 [,bash]
@@ -240,8 +226,3 @@ $ skupper unexpose deployment postgresql
 $ kubectl delete -f ~/pg-demo/skupper-example-postgresql/deployment-postgresql-svc.yaml
 $ skupper delete
 ----
---
-== Next steps
-
-* https://github.com/skupperproject/skupper-example-mongodb-replica-set[Try the example for multi-cluster MongoDB replica set deployment]
-* https://skupper.io/examples/[Find more examples]

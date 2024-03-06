@@ -2,25 +2,8 @@
 
 [discrete]
 ==== Twitter, Telegram and PostgreSQL integration routes deployed across Kubernetes clusters using Skupper
-This example is part of a https://skupper.io/examples/index.html[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
 
-[discrete]
-* <<overview,Overview>>
-* <<prerequisites,Prerequisites>>
-* <<step-1-configure-separate-console-sessions,Step 1: Configure separate console sessions>>
-* <<step-2-access-your-clusters,Step 2: Access your clusters>>
-* <<step-3-set-up-your-namespaces,Step 3: Set up your namespaces>>
-* <<step-4-install-skupper-in-your-namespaces,Step 4: Install Skupper in your namespaces>>
-* <<step-5-check-the-status-of-your-namespaces,Step 5: Check the status of your namespaces>>
-* <<step-6-link-your-namespaces,Step 6: Link your namespaces>>
-* <<step-7-deploy-and-expose-the-database-in-the-private-cluster,Step 7: Deploy and expose the database in the private cluster>>
-* <<step-8-create-the-table-to-store-the-tweets,Step 8: Create the table to store the tweets>>
-* <<step-9-deploy-twitter-camel-integration-in-the-public-cluster,Step 9: Deploy Twitter Camel Integration in the public cluster>>
-* <<step-10-deploy-telegram-camel-integration-in-the-public-cluster,Step 10: Deploy Telegram Camel integration in the public cluster>>
-* <<step-11-test-the-application,Step 11: Test the application>>
-* <<summary,Summary>>
-* <<cleaning-up,Cleaning up>>
-* <<next-steps,Next steps>>
+This example is part of a https://skupper.io/examples/index.html[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
 
 == Overview
 
@@ -51,14 +34,12 @@ In minikube you will need to execute the following commands:
 minikube addons enable registry
 kamel install
 ----
---
+
 * A `Twitter Developer Account` in order to use the Twiter API (you need to add the credentials in `config.properties` file)
 * Create a `Telegram` Bot and Channel to publish messages (you need to add the credentials in `config.properties` file)
 
-. Configure separate console sessions
-+
---
---
+== Step 1: Configure separate console sessions
+
 Skupper is designed for use with multiple namespaces, typically on different clusters.
 The `skupper` command uses your https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/[kubeconfig] and current context to select the namespace where it operates.
 
@@ -77,25 +58,23 @@ Console for _private1_:
 ----
 export KUBECONFIG=~/.kube/config-private1
 ----
---
+
 Console for _public1_:
 
 [,shell]
 ----
 export KUBECONFIG=~/.kube/config-public1
 ----
---
+
 Console for _public2_:
 
 [,shell]
 ----
 export KUBECONFIG=~/.kube/config-public2
 ----
---
-. Access your clusters
-+
---
---
+
+== Step 2: Access your clusters
+
 The methods for accessing your clusters vary by Kubernetes provider.
 Find the instructions for your chosen providers and use them to authenticate and configure access for each console session.
 See the following links for more information:
@@ -108,10 +87,8 @@ See the following links for more information:
 * https://skupper.io/start/openshift.html[OpenShift]
 * https://kubernetes.io/partners/#kcsp[More providers]
 
-. Set up your namespaces
-+
---
---
+== Step 3: Set up your namespaces
+
 Use `kubectl create namespace` to create the namespaces you wish to use (or use existing namespaces).
 Use `kubectl config set-context` to set the current namespace for each session.
 
@@ -122,7 +99,7 @@ Console for _private1_:
 kubectl create namespace private1
 kubectl config set-context --current --namespace private1
 ----
---
+
 Console for _public1_:
 
 [,shell]
@@ -130,7 +107,7 @@ Console for _public1_:
 kubectl create namespace public1
 kubectl config set-context --current --namespace public1
 ----
---
+
 Console for _public2_:
 
 [,shell]
@@ -138,11 +115,9 @@ Console for _public2_:
 kubectl create namespace public2
 kubectl config set-context --current --namespace public2
 ----
---
-. Install Skupper in your namespaces
-+
---
---
+
+== Step 4: Install Skupper in your namespaces
+
 The `skupper init` command installs the Skupper router and service controller in the current namespace.
 Run the `skupper init` command in each namespace.
 
@@ -154,25 +129,23 @@ Console for _private1_:
 ----
 skupper init
 ----
---
+
 Console for _public1_:
 
 [,shell]
 ----
 skupper init
 ----
---
+
 Console for _public2_:
 
 [,shell]
 ----
 skupper init
 ----
---
-. Check the status of your namespaces
-+
---
---
+
+== Step 5: Check the status of your namespaces
+
 Use `skupper status` in each console to check that Skupper is installed.
 
 Console for _private1_:
@@ -181,21 +154,21 @@ Console for _private1_:
 ----
 skupper status
 ----
---
+
 Console for _public1_:
 
 [,shell]
 ----
 skupper status
 ----
---
+
 Console for _public2_:
 
 [,shell]
 ----
 skupper status
 ----
---
+
 You should see output like this for each namespace:
 
 ----
@@ -203,13 +176,11 @@ Skupper is enabled for namespace "<namespace>" in interior mode. It is not conne
 The site console url is: http://<address>:8080
 The credentials for internal console-auth mode are held in secret: 'skupper-console-users'
 ----
---
+
 As you move through the steps below, you can use `skupper status` at any time to check your progress.
 
-. Link your namespaces
-+
---
---
+== Step 6: Link your namespaces
+
 Creating a link requires use of two `skupper` commands in conjunction, `skupper token create` and `skupper link create`.
 
 The `skupper token create` command generates a secret token that signifies permission to create a link.
@@ -229,7 +200,7 @@ Console for _public1_:
 ----
 skupper token create ~/public1.token --uses 2
 ----
---
+
 Console for _public2_:
 
 [,shell]
@@ -238,7 +209,7 @@ skupper link create ~/public1.token
 skupper link status --wait 30
 skupper token create ~/public2.token
 ----
---
+
 Console for _private1_:
 
 [,shell]
@@ -247,13 +218,11 @@ skupper link create ~/public1.token
 skupper link create ~/public2.token
 skupper link status --wait 30
 ----
---
+
 If your console sessions are on different machines, you may need to use `scp` or a similar tool to transfer the token.
 
-. Deploy and expose the database in the private cluster
-+
---
---
+== Step 7: Deploy and expose the database in the private cluster
+
 Use `kubectl apply` to deploy the database in `private1`.
 Then expose the deployment.
 
@@ -264,11 +233,9 @@ Console for _private1_:
 kubectl create -f src/main/resources/database/postgres-svc.yaml
 skupper expose deployment postgres --address postgres --port 5432 -n private1
 ----
---
-. Create the table to store the tweets
-+
---
---
+
+== Step 8: Create the table to store the tweets
+
 Console for _private1_:
 
 [,shell]
@@ -278,11 +245,9 @@ psql --dbname=postgresdb
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE tw_feedback (id uuid DEFAULT uuid_generate_v4 (),sigthning VARCHAR(255),created TIMESTAMP default CURRENT_TIMESTAMP,PRIMARY KEY(id));
 ----
---
-. Deploy Twitter Camel Integration in the public cluster
-+
---
---
+
+== Step 9: Deploy Twitter Camel Integration in the public cluster
+
 First, we need to deploy the `TwitterRoute` component in Kubernetes by using kamel.
 This component will poll Twitter every 5000 ms for tweets that include the word `skupper`.
 Subsequently, it will send the results to the `postgresql-sink`, that should be installed in the same cluster as well.
@@ -294,11 +259,9 @@ Console for _public1_:
 ----
 src/main/resources/scripts/setUpPublic1Cluster.sh
 ----
---
-. Deploy Telegram Camel integration in the public cluster
-+
---
---
+
+== Step 10: Deploy Telegram Camel integration in the public cluster
+
 In this step we will install the secret in Kubernetes that contains the database credentials, in order to be used by the `TelegramRoute` component.
 After that we will deploy `TelegramRoute` using kamel in the Kubernetes cluster.
 This component will poll the database every 3 seconds and gather the results inserted during the last 3 seconds.
@@ -309,11 +272,9 @@ Console for _public2_:
 ----
 src/main/resources/scripts/setUpPublic2Cluster.sh
 ----
---
-. Test the application
-+
---
---
+
+== Step 11: Test the application
+
 To be able to see the whole flow at work, you need to post a tweet containing the word `skupper` and after that you will see a new message in the Telegram channel with the title `New feedback about Skupper`
 
 Console for _private1_:
@@ -324,7 +285,7 @@ kubectl attach pg-shell -c pg-shell -i -t
 psql --dbname=postgresdb
 SELECT * FROM tw_feedback;
 ----
---
+
 Sample output:
 
 ----
@@ -332,20 +293,20 @@ id                                    | sigthning       |          created
 --------------------------------------+-----------------+----------------------------
  95655229-747a-4787-8133-923ef0a1b2ca | Testing skupper | 2022-03-10 19:35:08.412542
 ----
---
+
 Console for _public1_:
 
 [,shell]
 ----
 kamel logs twitter-route
 ----
---
+
 Sample output:
 
 ----
 "[1] 2022-03-10 19:35:08,397 INFO  [postgresql-sink-1] (Camel (camel-1) thread #0 - twitter-search://skupper) Testing skupper"
 ----
---
+
 == Summary
 
 This example locates the different camel integrations in different namespaces, on different clusters.
@@ -356,32 +317,3 @@ Any service exposed on the application network is represented as a local service
 
 The database is located in `private1`, but the TelegramRoute integration in `public2` can "see" it as if it were local.
 When the integration pulls the database, Skupper forwards the request to the namespace where the database is running and routes the response back to the integration component.
-
-== Cleaning up
-
-To remove Skupper and the other resources from this exercise, use the following commands.
-
-Console for _private1_:
-
-[,shell]
-----
-src/main/resources/scripts/tearDownPrivate1Cluster.sh
-----
---
-Console for _public1_:
-
-[,shell]
-----
-src/main/resources/scripts/tearDownPublic1Cluster.sh
-----
---
-Console for _public2_:
-
-[,shell]
-----
-src/main/resources/scripts/tearDownPublic2Cluster.sh
-----
---
-== Next steps
-
-Check out the other https://skupper.io/examples/index.html[examples] on the Skupper website.

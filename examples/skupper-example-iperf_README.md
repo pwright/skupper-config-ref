@@ -11,25 +11,6 @@ across cloud providers, data centers, and edge sites.
 [website]: https://skupper.io/
 [examples]: https://skupper.io/examples/index.html
 
-#### Contents
-
-* [Overview](#overview)
-* [Prerequisites](#prerequisites)
-* [Step 1: Install the Skupper command-line tool](#step-1-install-the-skupper-command-line-tool)
-* [Step 2: Configure separate console sessions](#step-2-configure-separate-console-sessions)
-* [Step 3: Access your clusters](#step-3-access-your-clusters)
-* [Step 4: Set up your namespaces](#step-4-set-up-your-namespaces)
-* [Step 5: Install Skupper in your namespaces](#step-5-install-skupper-in-your-namespaces)
-* [Step 6: Check the status of your namespaces](#step-6-check-the-status-of-your-namespaces)
-* [Step 7: Link your namespaces](#step-7-link-your-namespaces)
-* [Step 8: Deploy the iperf3 servers](#step-8-deploy-the-iperf3-servers)
-* [Step 9: Expose iperf3 from each namespace](#step-9-expose-iperf3-from-each-namespace)
-* [Step 10: Run benchmark tests across the clusters](#step-10-run-benchmark-tests-across-the-clusters)
-* [Accessing the web console](#accessing-the-web-console)
-* [Cleaning up](#cleaning-up)
-* [Next steps](#next-steps)
-* [About this example](#about-this-example)
-
 ## Overview
 
 This tutorial demonstrates how to perform real-time network throughput measurements across Kubernetes 
@@ -374,46 +355,3 @@ $ kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d
 Navigate to `<console-url>` in your browser.  When prompted, log
 in as user `admin` and enter the password.
 
-## Cleaning up
-
-To remove Skupper and the other resources from this exercise, use
-the following commands.
-
-_**Console for private1:**_
-
-~~~ shell
-kubectl delete deployment iperf3-server-a
-skupper delete
-~~~
-
-_**Console for public1:**_
-
-~~~ shell
-kubectl delete deployment iperf3-server-b
-skupper delete
-~~~
-
-_**Console for public2:**_
-
-~~~ shell
-kubectl delete deployment iperf3-server-c
-skupper delete
-~~~
-
-## Next steps
-
-- [Find more examples](https://skupper.io/examples/)
-
-## About this example
-
-This example was produced using [Skewer][skewer], a library for
-documenting and testing Skupper examples.
-
-[skewer]: https://github.com/skupperproject/skewer
-
-Skewer provides utility functions for generating the README and
-running the example steps.  Use the `./plano` command in the project
-root to see what is available.
-
-To quickly stand up the example using Minikube, try the `./plano demo`
-command.

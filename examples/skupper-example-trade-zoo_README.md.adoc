@@ -4,23 +4,8 @@ image::https://github.com/skupperproject/skupper-example-trade-zoo/actions/workf
 
 [discrete]
 ==== A simple trading application that runs in the public cloud but keeps its data in a private Kafka cluster
-This example is part of a https://skupper.io/examples/index.html[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
 
-[discrete]
-* <<overview,Overview>>
-* <<prerequisites,Prerequisites>>
-* <<step-1-install-the-skupper-command-line-tool,Step 1: Install the Skupper command-line tool>>
-* <<step-2-set-up-your-namespaces,Step 2: Set up your namespaces>>
-* <<step-3-deploy-the-kafka-cluster,Step 3: Deploy the Kafka cluster>>
-* <<step-4-deploy-the-application-services,Step 4: Deploy the application services>>
-* <<step-5-create-your-sites,Step 5: Create your sites>>
-* <<step-6-link-your-sites,Step 6: Link your sites>>
-* <<step-7-expose-the-kafka-cluster,Step 7: Expose the Kafka cluster>>
-* <<step-8-access-the-frontend,Step 8: Access the frontend>>
-* <<cleaning-up,Cleaning up>>
-* <<summary,Summary>>
-* <<next-steps,Next steps>>
-* <<about-this-example,About this example>>
+This example is part of a https://skupper.io/examples/index.html[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
 
 == Overview
 
@@ -48,10 +33,8 @@ The example uses two Kubernetes namespaces, "private" and "public", to represent
 * The `kubectl` command-line tool, version 1.15 or later (https://kubernetes.io/docs/tasks/tools/install-kubectl/[installation guide])
 * Access to at least one Kubernetes cluster, from https://skupper.io/start/kubernetes.html[any provider you choose]
 
-. Install the Skupper command-line tool
-+
---
---
+== Step 1: Install the Skupper command-line tool
+
 This example uses the Skupper command-line tool to deploy Skupper.
 You need to install the `skupper` command only once for each development environment.
 
@@ -61,16 +44,14 @@ On Linux or Mac, you can use the install script (inspect it https://github.com/s
 ----
 curl https://skupper.io/install.sh | sh
 ----
---
+
 The script installs the command under your home directory.
 It prompts you to add the command to your path if necessary.
 
 For Windows and other installation options, see https://skupper.io/install/[Installing Skupper].
 
-. Set up your namespaces
-+
---
---
+== Step 2: Set up your namespaces
+
 Skupper is designed for use with multiple Kubernetes namespaces, usually on different clusters.
 The `skupper` and `kubectl` commands use your https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/[kubeconfig] and current context to select the namespace where they operate.
 
@@ -103,7 +84,7 @@ export KUBECONFIG=~/.kube/config-public
 kubectl create namespace public
 kubectl config set-context --current --namespace public
 ----
---
+
 _*Private:*_
 
 [,shell]
@@ -113,11 +94,9 @@ export KUBECONFIG=~/.kube/config-private
 kubectl create namespace private
 kubectl config set-context --current --namespace private
 ----
---
-. Deploy the Kafka cluster
-+
---
---
+
+== Step 3: Deploy the Kafka cluster
+
 In Private, use the `kubectl create` and `kubectl apply` commands with the listed YAML files to install the operator and deploy the cluster and topic.
 
 _*Private:*_
@@ -128,7 +107,7 @@ kubectl create -f kafka-cluster/strimzi.yaml
 kubectl apply -f kafka-cluster/cluster1.yaml
 kubectl wait --for condition=ready --timeout 900s kafka/cluster1
 ----
---
+
 NOTE:
 
 By default, the Kafka bootstrap server returns broker addresses that include the Kubernetes namespace in their domain name.
@@ -151,13 +130,11 @@ spec:
             - broker: 0
               advertisedHost: cluster1-kafka-0.cluster1-kafka-brokers
 ----
---
+
 See https://strimzi.io/docs/operators/in-development/configuring.html#property-listener-config-broker-reference[Advertised addresses for brokers] for more information.
 
-. Deploy the application services
-+
---
---
+== Step 4: Deploy the application services
+
 In Public, use the `kubectl apply` command with the listed YAML files to install the application services.
 
 _*Public:*_
@@ -168,11 +145,9 @@ kubectl apply -f order-processor/kubernetes.yaml
 kubectl apply -f market-data/kubernetes.yaml
 kubectl apply -f frontend/kubernetes.yaml
 ----
---
-. Create your sites
-+
---
---
+
+== Step 5: Create your sites
+
 A Skupper _site_ is a location where components of your application are running.
 Sites are linked together to form a network for your application.
 In Kubernetes, a site is associated with a namespace.
@@ -190,7 +165,7 @@ _*Public:*_
 skupper init
 skupper status
 ----
---
+
 _Sample output:_
 
 [,console]
@@ -203,7 +178,7 @@ Skupper is now installed in namespace 'public'.  Use 'skupper status' to get mor
 $ skupper status
 Skupper is enabled for namespace "public". It is not connected to any other sites. It has no exposed services.
 ----
---
+
 _*Private:*_
 
 [,shell]
@@ -211,7 +186,7 @@ _*Private:*_
 skupper init
 skupper status
 ----
---
+
 _Sample output:_
 
 [,console]
@@ -224,13 +199,11 @@ Skupper is now installed in namespace 'private'.  Use 'skupper status' to get mo
 $ skupper status
 Skupper is enabled for namespace "private". It is not connected to any other sites. It has no exposed services.
 ----
---
+
 As you move through the steps below, you can use `skupper status` at any time to check your progress.
 
-. Link your sites
-+
---
---
+== Step 6: Link your sites
+
 A Skupper _link_ is a channel for communication between two sites.
 Links serve as a transport for application connections and requests.
 
@@ -253,7 +226,7 @@ _*Public:*_
 ----
 skupper token create ~/secret.token
 ----
---
+
 _Sample output:_
 
 [,console]
@@ -261,14 +234,14 @@ _Sample output:_
 $ skupper token create ~/secret.token
 Token written to ~/secret.token
 ----
---
+
 _*Private:*_
 
 [,shell]
 ----
 skupper link create ~/secret.token
 ----
---
+
 _Sample output:_
 
 [,console]
@@ -277,14 +250,12 @@ $ skupper link create ~/secret.token
 Site configured to link to https://10.105.193.154:8081/ed9c37f6-d78a-11ec-a8c7-04421a4c5042 (name=link1)
 Check the status of the link using 'skupper link status'.
 ----
---
+
 If your terminal sessions are on different machines, you may need to use `scp` or a similar tool to transfer the token securely.
 By default, tokens expire after a single use or 15 minutes after creation.
 
-. Expose the Kafka cluster
-+
---
---
+== Step 7: Expose the Kafka cluster
+
 In Private, use `skupper expose` with the `--headless` option to expose the Kafka cluster as a headless service on the Skupper network.
 
 Then, in Public, use `kubectl get service` to check that the `cluster1-kafka-brokers` service appears after a moment.
@@ -295,18 +266,16 @@ _*Private:*_
 ----
 skupper expose statefulset/cluster1-kafka --headless --port 9092
 ----
---
+
 _*Public:*_
 
 [,shell]
 ----
 kubectl get service/cluster1-kafka-brokers
 ----
---
-. Access the frontend
-+
---
---
+
+== Step 8: Access the frontend
+
 In order to use and test the application, we need external access to the frontend.
 
 Use `kubectl expose` with `--type LoadBalancer` to open network access to the frontend service.
@@ -327,7 +296,7 @@ kubectl expose deployment/frontend --port 8080 --type LoadBalancer
 kubectl get service/frontend
 curl http://<external-ip>:8080/api/health
 ----
---
+
 _Sample output:_
 
 [,console]
@@ -342,41 +311,5 @@ frontend   LoadBalancer   10.103.232.28   <external-ip>   8080:30407/TCP   15s
 $ curl http://<external-ip>:8080/api/health
 OK
 ----
---
+
 If everything is in order, you can now access the web interface by navigating to `http://<external-ip>:8080/` in your browser.
-
-== Cleaning up
-
-To remove Skupper and the other resources from this exercise, use the following commands.
-
-_*Private:*_
-
-[,shell]
-----
-skupper delete
-kubectl delete -f kafka-cluster/cluster1.yaml
-kubectl delete -f kafka-cluster/strimzi.yaml
-----
---
-_*Public:*_
-
-[,shell]
-----
-skupper delete
-kubectl delete -f frontend/kubernetes.yaml
-kubectl delete -f market-data/kubernetes.yaml
-kubectl delete -f order-processor/kubernetes.yaml
-----
---
-== Next steps
-
-Check out the other https://skupper.io/examples/index.html[examples] on the Skupper website.
-
-== About this example
-
-This example was produced using https://github.com/skupperproject/skewer[Skewer], a library for documenting and testing Skupper examples.
-
-Skewer provides utility functions for generating the README and running the example steps.
-Use the `./plano` command in the project root to see what is available.
-
-To quickly stand up the example using Minikube, try the `./plano demo` command.

@@ -303,11 +303,6 @@ Namespace `laptop`:
     skupper delete
     kubectl delete -f private-cloud.yaml 
 
-## Next steps
-
-* [Try our MongoDB database replica set example](https://github.com/skupperproject/skupper-example-mongodb-replica-set)
-* [Find more examples](https://skupper.io/examples/)
-
 ## Credits
 
 This demo uses public Bookinfo images provided by _docker.io/maistra_. 

@@ -1,8 +1,8 @@
-# Accessing an FTP server using Skupper
+# Accessing ActiveMQ using Skupper
 
-[![main](https://github.com/skupperproject/skupper-example-ftp/actions/workflows/main.yaml/badge.svg)](https://github.com/skupperproject/skupper-example-ftp/actions/workflows/main.yaml)
+[![main](https://github.com/skupperproject/skupper-example-activemq/actions/workflows/main.yaml/badge.svg)](https://github.com/skupperproject/skupper-example-activemq/actions/workflows/main.yaml)
 
-#### Securely connect to an FTP server on a remote Kubernetes cluster
+#### Use public cloud resources to process data from a private message broker
 
 This example is part of a [suite of examples][examples] showing the
 different ways you can use [Skupper][website] to connect services
@@ -11,17 +11,46 @@ across cloud providers, data centers, and edge sites.
 [website]: https://skupper.io/
 [examples]: https://skupper.io/examples/index.html
 
+#### Contents
+
+* [Overview](#overview)
+* [Prerequisites](#prerequisites)
+* [Step 1: Install the Skupper command-line tool](#step-1-install-the-skupper-command-line-tool)
+* [Step 2: Set up your namespaces](#step-2-set-up-your-namespaces)
+* [Step 3: Deploy the message broker](#step-3-deploy-the-message-broker)
+* [Step 4: Create your sites](#step-4-create-your-sites)
+* [Step 5: Link your sites](#step-5-link-your-sites)
+* [Step 6: Expose the message broker](#step-6-expose-the-message-broker)
+* [Step 7: Run the client](#step-7-run-the-client)
+* [Cleaning up](#cleaning-up)
+* [Summary](#summary)
+* [Next steps](#next-steps)
+* [About this example](#about-this-example)
+
 ## Overview
 
-This example shows you how you can use Skupper to connect an FTP
-client on one Kubernetes cluster to an FTP server on another.
+This example is a simple messaging application that shows how you
+can use Skupper to access an ActiveMQ broker at a remote site
+without exposing it to the public internet.
 
-It demonstrates use of Skupper with multi-port services such as FTP.
-It uses FTP in passive mode (which is more typical these days) and a
-[restricted port range][ports] that simplifies Skupper
-configuration.
+It contains two services:
 
-[ports]: https://github.com/skupperproject/skupper-example-ftp/blob/main/server/kubernetes.yaml#L25-L28
+* An ActiveMQ broker running in a private data center.  The broker
+  has a queue named "notifications".
+
+* An AMQP client running in the public cloud.  It sends 10 messages
+  to "notifications" and then receives them back.
+
+For the broker, this example uses the [Apache ActiveMQ
+Artemis][artemis] image from [ArtemisCloud.io][artemiscloud].  The
+client is a simple [Quarkus][quarkus] application.
+
+The example uses two Kubernetes namespaces, "private" and "public",
+to represent the private data center and public cloud.
+
+[artemis]: https://activemq.apache.org/components/artemis/
+[artemiscloud]: https://artemiscloud.io/
+[quarkus]: https://quarkus.io/
 
 ## Prerequisites
 
@@ -106,9 +135,10 @@ kubectl create namespace private
 kubectl config set-context --current --namespace private
 ~~~
 
-## Step 3: Deploy the FTP server
+## Step 3: Deploy the message broker
 
-In Private, use `kubectl apply` to deploy the FTP server.
+In Private, use the `kubectl apply` command to install the
+broker.
 
 _**Private:**_
 
@@ -120,7 +150,7 @@ _Sample output:_
 
 ~~~ console
 $ kubectl apply -f server
-deployment.apps/ftp-server created
+deployment.apps/broker created
 ~~~
 
 ## Step 4: Create your sites
@@ -235,44 +265,124 @@ to use `scp` or a similar tool to transfer the token securely.  By
 default, tokens expire after a single use or 15 minutes after
 creation.
 
-## Step 6: Expose the FTP server
+## Step 6: Expose the message broker
 
-In Private, use `skupper expose` to expose the FTP server on all
-linked sites.
+In Private, use `skupper expose` to expose the broker on the
+Skupper network.
+
+Then, in Public, use `kubectl get service/broker` to check that
+the service appears after a moment.
 
 _**Private:**_
 
 ~~~ shell
-skupper expose deployment/ftp-server --port 21100 --port 21
+skupper expose deployment/broker --port 5672
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ skupper expose deployment/ftp-server --port 21100 --port 21
-deployment ftp-server exposed as ftp-server
+$ skupper expose deployment/broker --port 5672
+deployment broker exposed as broker
 ~~~
-
-## Step 7: Run the FTP client
-
-In Public, use `kubectl run` and the `curl` image to perform FTP
-put and get operations.
 
 _**Public:**_
 
 ~~~ shell
-echo "Hello!" | kubectl run ftp-client --stdin --rm --image=docker.io/curlimages/curl --restart=Never -- -s -T - ftp://example:example@ftp-server/greeting
-kubectl run ftp-client --attach --rm --image=docker.io/curlimages/curl --restart=Never -- -s ftp://example:example@ftp-server/greeting
+kubectl get service/broker
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ echo "Hello!" | kubectl run ftp-client --stdin --rm --image=docker.io/curlimages/curl --restart=Never -- -s -T - ftp://example:example@ftp-server/greeting
-pod "ftp-client" deleted
-
-$ kubectl run ftp-client --attach --rm --image=docker.io/curlimages/curl --restart=Never -- -s ftp://example:example@ftp-server/greeting
-Hello!
-pod "ftp-client" deleted
+$ kubectl get service/broker
+NAME     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+broker   ClusterIP   10.100.58.95   <none>        5672/TCP   2s
 ~~~
 
+## Step 7: Run the client
+
+In Public, use `kubectl run` to run the client.
+
+_**Public:**_
+
+~~~ shell
+kubectl run client --attach --rm --restart Never --image quay.io/skupper/activemq-example-client --env SERVER=broker
+~~~
+
+_Sample output:_
+
+~~~ console
+$ kubectl run client --attach --rm --restart Never --image quay.io/skupper/activemq-example-client --env SERVER=broker
+__  ____  __  _____   ___  __ ____  ______
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/
+2022-05-27 11:19:07,149 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16201: AMQP broker configured to broker:5672 for channel incoming-messages
+2022-05-27 11:19:07,170 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16201: AMQP broker configured to broker:5672 for channel outgoing-messages
+2022-05-27 11:19:07,198 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16212: Establishing connection with AMQP broker
+2022-05-27 11:19:07,212 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16212: Establishing connection with AMQP broker
+2022-05-27 11:19:07,215 INFO  [io.quarkus] (main) client 1.0.0-SNAPSHOT on JVM (powered by Quarkus 2.9.2.Final) started in 0.397s.
+2022-05-27 11:19:07,215 INFO  [io.quarkus] (main) Profile prod activated.
+2022-05-27 11:19:07,215 INFO  [io.quarkus] (main) Installed features: [cdi, smallrye-context-propagation, smallrye-reactive-messaging, smallrye-reactive-messaging-amqp, vertx]
+Sent message 1
+Sent message 2
+Sent message 3
+Sent message 4
+Sent message 5
+Sent message 6
+Sent message 7
+Sent message 8
+Sent message 9
+Sent message 10
+2022-05-27 11:19:07,434 INFO  [io.sma.rea.mes.amqp] (vert.x-eventloop-thread-0) SRMSG16213: Connection with AMQP broker established
+2022-05-27 11:19:07,442 INFO  [io.sma.rea.mes.amqp] (vert.x-eventloop-thread-0) SRMSG16213: Connection with AMQP broker established
+2022-05-27 11:19:07,468 INFO  [io.sma.rea.mes.amqp] (vert.x-eventloop-thread-0) SRMSG16203: AMQP Receiver listening address notifications
+Received message 1
+Received message 2
+Received message 3
+Received message 4
+Received message 5
+Received message 6
+Received message 7
+Received message 8
+Received message 9
+Received message 10
+Result: OK
+~~~
+
+## Cleaning up
+
+To remove Skupper and the other resources from this exercise, use
+the following commands.
+
+_**Private:**_
+
+~~~ shell
+kubectl delete -f server
+skupper delete
+~~~
+
+_**Public:**_
+
+~~~ shell
+skupper delete
+~~~
+
+## Next steps
+
+Check out the other [examples][examples] on the Skupper website.
+
+## About this example
+
+This example was produced using [Skewer][skewer], a library for
+documenting and testing Skupper examples.
+
+[skewer]: https://github.com/skupperproject/skewer
+
+Skewer provides utility functions for generating the README and
+running the example steps.  Use the `./plano` command in the project
+root to see what is available.
+
+To quickly stand up the example using Minikube, try the `./plano demo`
+command.

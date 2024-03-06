@@ -191,8 +191,3 @@ Restore your cluster environment by returning the resources created in the demon
    $ skupper delete
    ```
 
-## Next steps
-
- - [Try the Bookinfo example for distributing application http services](https://github.com/skupperproject/skupper-example-bookinfo)
- - [Try the Hipster Shop example for distributing application microservices](https://github.com/skupperproject/skupper-example-microservices)
- - [Find more examples](https://skupper.io/examples/)

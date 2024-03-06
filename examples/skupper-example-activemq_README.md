@@ -11,22 +11,6 @@ across cloud providers, data centers, and edge sites.
 [website]: https://skupper.io/
 [examples]: https://skupper.io/examples/index.html
 
-#### Contents
-
-* [Overview](#overview)
-* [Prerequisites](#prerequisites)
-* [Step 1: Install the Skupper command-line tool](#step-1-install-the-skupper-command-line-tool)
-* [Step 2: Set up your namespaces](#step-2-set-up-your-namespaces)
-* [Step 3: Deploy the message broker](#step-3-deploy-the-message-broker)
-* [Step 4: Create your sites](#step-4-create-your-sites)
-* [Step 5: Link your sites](#step-5-link-your-sites)
-* [Step 6: Expose the message broker](#step-6-expose-the-message-broker)
-* [Step 7: Run the client](#step-7-run-the-client)
-* [Cleaning up](#cleaning-up)
-* [Summary](#summary)
-* [Next steps](#next-steps)
-* [About this example](#about-this-example)
-
 ## Overview
 
 This example is a simple messaging application that shows how you
@@ -351,38 +335,3 @@ Received message 10
 Result: OK
 ~~~
 
-## Cleaning up
-
-To remove Skupper and the other resources from this exercise, use
-the following commands.
-
-_**Private:**_
-
-~~~ shell
-kubectl delete -f server
-skupper delete
-~~~
-
-_**Public:**_
-
-~~~ shell
-skupper delete
-~~~
-
-## Next steps
-
-Check out the other [examples][examples] on the Skupper website.
-
-## About this example
-
-This example was produced using [Skewer][skewer], a library for
-documenting and testing Skupper examples.
-
-[skewer]: https://github.com/skupperproject/skewer
-
-Skewer provides utility functions for generating the README and
-running the example steps.  Use the `./plano` command in the project
-root to see what is available.
-
-To quickly stand up the example using Minikube, try the `./plano demo`
-command.

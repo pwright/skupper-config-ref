@@ -227,37 +227,6 @@ Now that the MongoDB members have formed a replica set and are connected by the 
    > db.coll.find()
    ```
 
-## Cleaning up
-
-Restore your cluster environment by returning the resource created in the demonstration. On each cluster, delete the demo resources and the skupper network:
-
-1. In the terminal for the **private1** cluster, delete the resources:
-
-
-   ```bash
-   $ skupper unexpose deployment mongo-a
-   $ kubectl delete -f ~/mongodb-demo/skupper-example-mongodb-replica-set/deployment-mongo-a.yaml
-   $ skupper delete
-   ```
-
-2. In the terminal for the **public1** cluster, delete the resources:
-
-
-   ```bash
-   $ skupper unexpose deployment mongo-b
-   $ kubectl delete -f ~/mongodb-demo/skupper-example-mongodb-replica-set/deployment-mongo-b.yaml
-   $ skupper delete
-   ```
-
-3. In the terminal for the **public2** cluster, delete the resources:
-
-
-   ```bash
-   $ skupper unexpose deployment mongo-c
-   $ kubectl delete -f ~/mongodb-demo/skupper-example-mongodb-replica-set/deployment-mongo-c.yaml
-   $ skupper delete
-   ```
-
 ## Next Steps
 
  - [Find more examples](https://skupper.io/examples/)

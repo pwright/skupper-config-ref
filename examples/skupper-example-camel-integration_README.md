@@ -9,25 +9,6 @@ across cloud providers, data centers, and edge sites.
 [website]: https://skupper.io/
 [examples]: https://skupper.io/examples/index.html
 
-#### Contents
-
-* [Overview](#overview)
-* [Prerequisites](#prerequisites)
-* [Step 1: Configure separate console sessions](#step-1-configure-separate-console-sessions)
-* [Step 2: Access your clusters](#step-2-access-your-clusters)
-* [Step 3: Set up your namespaces](#step-3-set-up-your-namespaces)
-* [Step 4: Install Skupper in your namespaces](#step-4-install-skupper-in-your-namespaces)
-* [Step 5: Check the status of your namespaces](#step-5-check-the-status-of-your-namespaces)
-* [Step 6: Link your namespaces](#step-6-link-your-namespaces)
-* [Step 7: Deploy and expose the database in the private cluster](#step-7-deploy-and-expose-the-database-in-the-private-cluster)
-* [Step 8: Create the table to store the tweets](#step-8-create-the-table-to-store-the-tweets)
-* [Step 9: Deploy Twitter Camel Integration in the public cluster](#step-9-deploy-twitter-camel-integration-in-the-public-cluster)
-* [Step 10: Deploy Telegram Camel integration in the public cluster](#step-10-deploy-telegram-camel-integration-in-the-public-cluster)
-* [Step 11: Test the application](#step-11-test-the-application)
-* [Summary](#summary)
-* [Cleaning up](#cleaning-up)
-* [Next steps](#next-steps)
-
 ## Overview
 
 In this example we can see how to integrate different Camel integration routers
@@ -358,29 +339,3 @@ in `public2` can "see" it as if it were local.  When the integration pulls
 the database, Skupper forwards the request to the namespace where the database is running
 and routes the response back to the integration component.
 
-## Cleaning up
-
-To remove Skupper and the other resources from this exercise, use the
-following commands.
-
-Console for _private1_:
-
-~~~ shell
-src/main/resources/scripts/tearDownPrivate1Cluster.sh
-~~~
-
-Console for _public1_:
-
-~~~ shell
-src/main/resources/scripts/tearDownPublic1Cluster.sh
-~~~
-
-Console for _public2_:
-
-~~~ shell
-src/main/resources/scripts/tearDownPublic2Cluster.sh
-~~~
-
-## Next steps
-
-Check out the other [examples][examples] on the Skupper website.

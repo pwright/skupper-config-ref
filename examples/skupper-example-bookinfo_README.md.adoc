@@ -15,6 +15,7 @@ Watch a https://www.youtube.com/watch?v=H80GLl-KdTc[video] demonstrating this tu
 
 [discrete]
 === Table of contents
+
 * <<overview,Overview>>
 * <<prerequisites,Prerequisites>>
 * <<step-1-deploy-the-bookinfo-application,Step 1: Deploy the Bookinfo application>>
@@ -32,6 +33,7 @@ Watch a https://www.youtube.com/watch?v=H80GLl-KdTc[video] demonstrating this tu
 
 [discrete]
 ===== Figure 1 - Bookinfo service deployment
+
 image::graphics/skupper-example-bookinfo-deployment.gif[,640]
 
 Figure 1 shows how the services will be deployed.
@@ -47,6 +49,7 @@ This demo will show how Skupper can solve the connectivity problem presented by 
 
 [discrete]
 ===== Figure 2 - Bookinfo service deployment with Skupper
+
 image::graphics/skupper-example-bookinfo-details.gif[,640]
 
 Figure 2 shows how the clusters appear after Skupper has been set up.
@@ -73,10 +76,8 @@ To run this tutorial you will need:
 * Two logged-in console terminals, one for each cluster or namespace
 * If you are using `minikube` as your public cluster, run `$ minikube tunnel` in a separate terminal
 
-. Deploy the Bookinfo application
-+
---
---
+== Step 1: Deploy the Bookinfo application
+
 This step creates a service and a deployment for each of the four Bookinfo microservices.
 
 Namespace `aws-eu-west`:
@@ -95,10 +96,8 @@ Namespace `laptop`:
  service/reviews created
  deployment.extensions/reviews-v3 created
 
-. Expose the public productpage service
-+
---
---
+== Step 2: Expose the public productpage service
+
 Namespace `aws-eu-west`:
 
  $ kubectl expose deployment/productpage-v1 --port 9080 --type LoadBalancer
@@ -109,10 +108,8 @@ If you are running your public cluster namespace `aws-eu-west` on OKD, then you 
 
  $ oc create route edge productpage --service=productpage
 
-. Observe that the application does not work
-+
---
---
+== Step 3: Observe that the application does not work
+
 The web address for the Bookinfo application can be discovered from  namespace `aws-eu-west`:
 
  $ echo $(kubectl get service/productpage -o jsonpath='http://{.status.loadBalancer.ingress[0].hostname}:9080')
@@ -130,10 +127,8 @@ _Productpage_ responds but the page will show errors because the services in nam
 
 Let's fix that now.
 
-. Set up Skupper
-+
---
---
+== Step 4: Set up Skupper
+
 This step initializes the Skupper environment on each cluster.
 
 Namespace `laptop`:
@@ -152,10 +147,8 @@ Use `skupper status` in each console terminal to see that Skupper is available.
 
 As you move through the steps that follow, you can use `skupper status` at any time to check your progress.
 
-. Connect your Skupper installations
-+
---
---
+== Step 5: Connect your Skupper installations
+
 Now you need to connect your namespaces with a Skupper connection.
 This is a two step process.
 
@@ -199,10 +192,8 @@ Namespace `laptop`:
  $ skupper status
  Skupper is enabled for namespace '"laptop" in interior mode'. It is connected to 1 other site. It has no exposed service.
 
-. Virtualize the services you want shared
-+
---
---
+== Step 6: Virtualize the services you want shared
+
 You now have a Skupper network capable of multi-cluster communication  but no services are associated with it.
 This step uses the `kubectl annotate`  command to notify Skupper that a service is to be included in the Skupper network.
 
@@ -225,7 +216,7 @@ service/details annotated
 $ kubectl annotate service reviews skupper.io/proxy=http
 service/reviews annotated
 ----
---
+
 Alternatively, Skupper command `expose` can be used as well:
 
 Namespace `aws-eu-west`:
@@ -243,14 +234,12 @@ service details exposed as details
 $ skupper expose service reviews --address reviews --protocol http
 service reviews exposed as reviews
 ----
---
+
 Skupper is now making the annotated services available to every namespace in the Skupper network.
 The Bookinfo application will work because the _productpage_ service on the public cluster has access to the _details_ and _reviews_ services on the private cluster and because the _reviews_ service on the private cluster has access to the _ratings_ service on the public cluster.
 
-. Observe that the application works
-+
---
---
+== Step 7: Observe that the application works
+
 The web address for the Bookinfo app can be discovered from  namespace `aws-eu-west`:
 
  $ echo $(kubectl get service/productpage -o jsonpath='http://{.status.loadBalancer.ingress[0].hostname}:9080')
@@ -279,11 +268,6 @@ Namespace `laptop`:
 
  skupper delete
  kubectl delete -f private-cloud.yaml
-
-== Next steps
-
-* https://github.com/skupperproject/skupper-example-mongodb-replica-set[Try our MongoDB database replica set example]
-* https://skupper.io/examples/[Find more examples]
 
 == Credits
 
