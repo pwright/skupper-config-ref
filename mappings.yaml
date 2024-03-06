@@ -5,6 +5,7 @@ simple_mappings:
   "== Prerequisites": "Prerequisites"
   # example links mapping
   "https://skupper.io/examples/index.html": "{examplesLink}"
+  "https://skupper.io/[Skupper]": "Skupper"
 
   # install material
   "curl https://skupper.io/install.sh | sh": "sudo dnf install skupper-cli"
@@ -27,7 +28,7 @@ regex_mappings:
     replacement: "Twit\\1"
   - pattern: "==== Perform(.*)"
     replacement: "Perform\\1"
-  
+
   # steps
   - pattern: "(== Step 1: .*)"
     replacement: "--\n.Procedure\n\\1"

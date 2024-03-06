@@ -5,7 +5,7 @@
 
 Use public cloud resources to process data from a private Kafka cluster
 
-This example is part of a {examplesLink}[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
+This example is part of a {examplesLink}[suite of examples] showing the different ways you can use Skupper to connect services across cloud providers, data centers, and edge sites.
 
 .Overview
 
@@ -187,7 +187,7 @@ See https://strimzi.io/docs/operators/in-development/configuring.html#property-l
 +
 --
 
-A Skupper _site is a location where components of your application are running.
+A Skupper site is a location where components of your application are running.
 Sites are linked together to form a network for your application.
 In Kubernetes, a site is associated with a namespace.
 
@@ -247,7 +247,7 @@ As you move through the steps below, you can use `skupper status` at any time to
 +
 --
 
-A Skupper _link is a channel for communication between two sites.
+A Skupper link is a channel for communication between two sites.
 Links serve as a transport for application connections and requests.
 
 Creating a link requires use of two `skupper` commands in conjunction, `skupper token create` and `skupper link create`.
@@ -256,7 +256,7 @@ The `skupper token create` command generates a secret token that signifies permi
 The token also carries the link details.
 Then, in a remote site, The `skupper link create` command uses the token to create a link to the site that generated it.
 
-NOTE: The link token is truly a _secret.
+NOTE: The link token is truly a secret.
 Anyone who has the token can link to your site.
 Make sure that only those you trust have access to it.
 

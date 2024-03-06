@@ -3,7 +3,7 @@
 
 A simple database-backed web application that runs in the public cloud but keeps its data in a private database
 
-This example is part of a {examplesLink}[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
+This example is part of a {examplesLink}[suite of examples] showing the different ways you can use Skupper to connect services across cloud providers, data centers, and edge sites.
 
 .Overview
 
@@ -123,7 +123,7 @@ systemctl --user enable --now podman.socket
 If the `systemctl` command doesn't work, you can try the `podman system service` command instead:
 
 ----
-podman system service --time=0 unix://$XDG_RUNTIMEDIR/podman/podman.sock &
+podman system service --time=0 unix://$XDGRUNTIMEDIR/podman/podman.sock &
 ----
 
 --
@@ -199,7 +199,7 @@ The `skupper token create` command generates a secret token that signifies permi
 The token also carries the link details.
 Then, in a remote site, The `skupper link create` command uses the token to create a link to the site that generated it.
 
-NOTE: The link token is truly a _secret.
+NOTE: The link token is truly a secret.
 Anyone who has the token can link to your site.
 Make sure that only those you trust have access to it.
 

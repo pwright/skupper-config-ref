@@ -5,7 +5,7 @@
 
 Perform real-time network throughput measurements while using iPerf3
 
-This example is part of a {examplesLink}[suite of examples] showing the different ways you can use https://skupper.io/[Skupper] to connect services across cloud providers, data centers, and edge sites.
+This example is part of a {examplesLink}[suite of examples] showing the different ways you can use Skupper to connect services across cloud providers, data centers, and edge sites.
 
 .Overview
 
@@ -221,7 +221,7 @@ The `skupper token create` command generates a secret token that signifies permi
 The token also carries the link details.
 Then, in a remote namespace, The `skupper link create` command uses the token to create a link to the namespace that generated it.
 
-NOTE: The link token is truly a _secret.
+NOTE: The link token is truly a secret.
 Anyone who has the token can link to your namespace.
 Make sure that only those you trust have access to it.
 

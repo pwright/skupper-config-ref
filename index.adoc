@@ -1,5 +1,10 @@
 # Examples
 
+:examplesLink: link:.
+
+include::examples/skupper-example-hello-world_README.md.adoc[leveloffset=1]
+--
+
 include::examples/skupper-example-activemq_README.md.adoc[leveloffset=1]
 --
 
@@ -9,8 +14,6 @@ include::examples/skupper-example-camel-integration_README.md.adoc[leveloffset=1
 include::examples/skupper-example-ftp_README.md.adoc[leveloffset=1]
 --
 
-include::examples/skupper-example-hello-world_README.md.adoc[leveloffset=1]
---
 
 include::examples/skupper-example-iperf_README.md.adoc[leveloffset=1]
 --
