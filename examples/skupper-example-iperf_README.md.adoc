@@ -34,7 +34,7 @@ As an example, the three clusters might consist of:
 The `skupper` command-line tool is the entrypoint for installing and configuring Skupper.
 You need to install the `skupper` command only once for each development environment.
 
-include::install.adoc[]
+See the SkupperInstallBookLink for details about installing the CLI. For configured systems, use the following command:
 
 [,shell]
 ----

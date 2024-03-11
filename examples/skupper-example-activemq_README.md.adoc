@@ -39,7 +39,7 @@ Prerequisites
 This example uses the Skupper command-line tool to deploy Skupper.
 You need to install the `skupper` command only once for each development environment.
 
-include::install.adoc[]
+See the SkupperInstallBookLink for details about installing the CLI. For configured systems, use the following command:
 
 [,shell]
 ----
@@ -300,10 +300,10 @@ Sample output:
 [,console]
 ----
 $ kubectl run client --attach --rm --restart Never --image quay.io/skupper/activemq-example-client --env SERVER=broker
-  ____  __  _____   ___  __ ____  ___
- --/ __ \/ / / / _ | / _ \/ /// / / / /
- -/ /_/ / /_/ / _ |/ , / ,< / // /\ \
---\___\_\____/_/ |_/_/|_/_/|_|\____//
+  ____  __  _____   ___  __ ____  ____
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / /
+ -/ /_/ / /_/ / __ |/ , / ,< / // /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/_/
 2022-05-27 11:19:07,149 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16201: AMQP broker configured to broker:5672 for channel incoming-messages
 2022-05-27 11:19:07,170 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16201: AMQP broker configured to broker:5672 for channel outgoing-messages
 2022-05-27 11:19:07,198 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16212: Establishing connection with AMQP broker

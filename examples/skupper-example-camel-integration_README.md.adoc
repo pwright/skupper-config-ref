@@ -277,7 +277,7 @@ Console for private1:
 kubectl run pg-shell -i --tty --image quay.io/skupper/simple-pg --env="PGUSER=postgresadmin" --env="PGPASSWORD=admin123" --env="PGHOST=$(kubectl get service postgres -o=jsonpath='{.spec.clusterIP}')" -- bash
 psql --dbname=postgresdb
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE TABLE tw_feedback (id uuid DEFAULT uuidgeneratev4 (),sigthning VARCHAR(255),created TIMESTAMP default CURRENTTIMESTAMP,PRIMARY KEY(id));
+CREATE TABLE tw_feedback (id uuid DEFAULT uuid_generatev4 (),sigthning VARCHAR(255),created TIMESTAMP default CURRENTTIMESTAMP,PRIMARY KEY(id));
 ----
 
 --

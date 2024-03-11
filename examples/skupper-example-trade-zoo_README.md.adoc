@@ -44,7 +44,7 @@ Prerequisites
 This example uses the Skupper command-line tool to deploy Skupper.
 You need to install the `skupper` command only once for each development environment.
 
-include::install.adoc[]
+See the SkupperInstallBookLink for details about installing the CLI. For configured systems, use the following command:
 
 [,shell]
 ----
