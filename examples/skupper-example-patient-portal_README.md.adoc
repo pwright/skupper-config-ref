@@ -30,7 +30,24 @@ Prerequisites
 .Procedure
 --
 
-. Install the Skupper command-line tool
+
+* xref:skupper-example-patient-portal_READMEmd_item1[Install the Skupper command-line tool]
+
+* xref:skupper-example-patient-portal_READMEmd_item2[Set up your Kubernetes namespaces]
+
+* xref:skupper-example-patient-portal_READMEmd_item3[Set up your Podman network]
+
+* xref:skupper-example-patient-portal_READMEmd_item4[Deploy the application]
+
+* xref:skupper-example-patient-portal_READMEmd_item5[Create your sites]
+
+* xref:skupper-example-patient-portal_READMEmd_item6[Link your sites]
+
+* xref:skupper-example-patient-portal_READMEmd_item7[Expose application services]
+
+* xref:skupper-example-patient-portal_READMEmd_item8[Access the frontend]
+
+. [[skupper-example-patient-portal_READMEmd_item1]]Install the Skupper command-line tool
 +
 --
 
@@ -51,7 +68,7 @@ sudo dnf install skupper-cli
 
 --
 
-. Set up your Kubernetes namespaces
+. [[skupper-example-patient-portal_READMEmd_item2]]Set up your Kubernetes namespaces
 +
 --
 
@@ -100,7 +117,7 @@ kubectl config set-context --current --namespace private
 
 --
 
-. Set up your Podman network
+. [[skupper-example-patient-portal_READMEmd_item3]]Set up your Podman network
 +
 --
 
@@ -128,7 +145,7 @@ podman system service --time=0 unix://$XDGRUNTIMEDIR/podman/podman.sock &
 
 --
 
-. Deploy the application
+. [[skupper-example-patient-portal_READMEmd_item4]]Deploy the application
 +
 --
 
@@ -162,7 +179,7 @@ podman run --name database-target --network skupper --detach --rm -p 5432:5432 q
 
 --
 
-. Create your sites
+. [[skupper-example-patient-portal_READMEmd_item5]]Create your sites
 +
 --
 
@@ -189,7 +206,7 @@ skupper init --ingress none
 
 --
 
-. Link your sites
+. [[skupper-example-patient-portal_READMEmd_item6]]Link your sites
 +
 --
 
@@ -232,7 +249,7 @@ By default, tokens expire after a single use or 15 minutes after creation.
 
 --
 
-. Expose application services
+. [[skupper-example-patient-portal_READMEmd_item7]]Expose application services
 +
 --
 
@@ -269,7 +286,7 @@ skupper service create database 5432
 
 --
 
-. Access the frontend
+. [[skupper-example-patient-portal_READMEmd_item8]]Access the frontend
 +
 --
 

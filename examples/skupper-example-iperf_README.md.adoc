@@ -27,7 +27,28 @@ As an example, the three clusters might consist of:
 .Procedure
 --
 
-. Install the Skupper command-line tool
+
+* xref:skupper-example-iperf_READMEmd_item1[Install the Skupper command-line tool]
+
+* xref:skupper-example-iperf_READMEmd_item2[Configure separate console sessions]
+
+* xref:skupper-example-iperf_READMEmd_item3[Access your clusters]
+
+* xref:skupper-example-iperf_READMEmd_item4[Set up your namespaces]
+
+* xref:skupper-example-iperf_READMEmd_item5[Install Skupper in your namespaces]
+
+* xref:skupper-example-iperf_READMEmd_item6[Check the status of your namespaces]
+
+* xref:skupper-example-iperf_READMEmd_item7[Link your namespaces]
+
+* xref:skupper-example-iperf_READMEmd_item8[Deploy the iperf3 servers]
+
+* xref:skupper-example-iperf_READMEmd_item9[Expose iperf3 from each namespace]
+
+* xref:skupper-example-iperf_READMEmd_item10[Run benchmark tests across the clusters]
+
+. [[skupper-example-iperf_READMEmd_item1]]Install the Skupper command-line tool
 +
 --
 
@@ -48,7 +69,7 @@ For Windows and other installation options, see https://skupper.io/install/index
 
 --
 
-. Configure separate console sessions
+. [[skupper-example-iperf_READMEmd_item2]]Configure separate console sessions
 +
 --
 
@@ -87,7 +108,7 @@ export KUBECONFIG=~/.kube/config-private1
 
 --
 
-. Access your clusters
+. [[skupper-example-iperf_READMEmd_item3]]Access your clusters
 +
 --
 
@@ -96,7 +117,7 @@ https://skupper.io/start/kubernetes.html[Find the instructions for your chosen p
 
 --
 
-. Set up your namespaces
+. [[skupper-example-iperf_READMEmd_item4]]Set up your namespaces
 +
 --
 
@@ -129,7 +150,7 @@ kubectl config set-context --current --namespace private1
 
 --
 
-. Install Skupper in your namespaces
+. [[skupper-example-iperf_READMEmd_item5]]Install Skupper in your namespaces
 +
 --
 
@@ -171,7 +192,7 @@ Skupper is now installed in namespace '<namespace>'.  Use 'skupper status' to ge
 
 --
 
-. Check the status of your namespaces
+. [[skupper-example-iperf_READMEmd_item6]]Check the status of your namespaces
 +
 --
 
@@ -211,7 +232,7 @@ As you move through the steps below, you can use `skupper status` at any time to
 
 --
 
-. Link your namespaces
+. [[skupper-example-iperf_READMEmd_item7]]Link your namespaces
 +
 --
 
@@ -259,7 +280,7 @@ By default, tokens expire after a single use or 15 minutes after creation.
 
 --
 
-. Deploy the iperf3 servers
+. [[skupper-example-iperf_READMEmd_item8]]Deploy the iperf3 servers
 +
 --
 
@@ -288,7 +309,7 @@ kubectl apply -f deployment-iperf3-c.yaml
 
 --
 
-. Expose iperf3 from each namespace
+. [[skupper-example-iperf_READMEmd_item9]]Expose iperf3 from each namespace
 +
 --
 
@@ -318,7 +339,7 @@ skupper expose deployment/iperf3-server-c --port 5201
 
 --
 
-. Run benchmark tests across the clusters
+. [[skupper-example-iperf_READMEmd_item10]]Run benchmark tests across the clusters
 +
 --
 

@@ -37,7 +37,24 @@ Prerequisites
 .Procedure
 --
 
-. Install the Skupper command-line tool
+
+* xref:skupper-example-trade-zoo_READMEmd_item1[Install the Skupper command-line tool]
+
+* xref:skupper-example-trade-zoo_READMEmd_item2[Set up your namespaces]
+
+* xref:skupper-example-trade-zoo_READMEmd_item3[Deploy the Kafka cluster]
+
+* xref:skupper-example-trade-zoo_READMEmd_item4[Deploy the application services]
+
+* xref:skupper-example-trade-zoo_READMEmd_item5[Create your sites]
+
+* xref:skupper-example-trade-zoo_READMEmd_item6[Link your sites]
+
+* xref:skupper-example-trade-zoo_READMEmd_item7[Expose the Kafka cluster]
+
+* xref:skupper-example-trade-zoo_READMEmd_item8[Access the frontend]
+
+. [[skupper-example-trade-zoo_READMEmd_item1]]Install the Skupper command-line tool
 +
 --
 
@@ -58,7 +75,7 @@ sudo dnf install skupper-cli
 
 --
 
-. Set up your namespaces
+. [[skupper-example-trade-zoo_READMEmd_item2]]Set up your namespaces
 +
 --
 
@@ -107,7 +124,7 @@ kubectl config set-context --current --namespace private
 
 --
 
-. Deploy the Kafka cluster
+. [[skupper-example-trade-zoo_READMEmd_item3]]Deploy the Kafka cluster
 +
 --
 
@@ -149,7 +166,7 @@ See https://strimzi.io/docs/operators/in-development/configuring.html#property-l
 
 --
 
-. Deploy the application services
+. [[skupper-example-trade-zoo_READMEmd_item4]]Deploy the application services
 +
 --
 
@@ -166,7 +183,7 @@ kubectl apply -f frontend/kubernetes.yaml
 
 --
 
-. Create your sites
+. [[skupper-example-trade-zoo_READMEmd_item5]]Create your sites
 +
 --
 
@@ -226,7 +243,7 @@ As you move through the steps below, you can use `skupper status` at any time to
 
 --
 
-. Link your sites
+. [[skupper-example-trade-zoo_READMEmd_item6]]Link your sites
 +
 --
 
@@ -282,7 +299,7 @@ By default, tokens expire after a single use or 15 minutes after creation.
 
 --
 
-. Expose the Kafka cluster
+. [[skupper-example-trade-zoo_READMEmd_item7]]Expose the Kafka cluster
 +
 --
 
@@ -306,7 +323,7 @@ kubectl get service/cluster1-kafka-brokers
 
 --
 
-. Access the frontend
+. [[skupper-example-trade-zoo_READMEmd_item8]]Access the frontend
 +
 --
 

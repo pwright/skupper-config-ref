@@ -32,7 +32,22 @@ Prerequisites
 .Procedure
 --
 
-. Install the Skupper command-line tool
+
+* xref:skupper-example-activemq_READMEmd_item1[Install the Skupper command-line tool]
+
+* xref:skupper-example-activemq_READMEmd_item2[Set up your namespaces]
+
+* xref:skupper-example-activemq_READMEmd_item3[Deploy the message broker]
+
+* xref:skupper-example-activemq_READMEmd_item4[Create your sites]
+
+* xref:skupper-example-activemq_READMEmd_item5[Link your sites]
+
+* xref:skupper-example-activemq_READMEmd_item6[Expose the message broker]
+
+* xref:skupper-example-activemq_READMEmd_item7[Run the client]
+
+. [[skupper-example-activemq_READMEmd_item1]]Install the Skupper command-line tool
 +
 --
 
@@ -53,7 +68,7 @@ sudo dnf install skupper-cli
 
 --
 
-. Set up your namespaces
+. [[skupper-example-activemq_READMEmd_item2]]Set up your namespaces
 +
 --
 
@@ -102,7 +117,7 @@ kubectl config set-context --current --namespace private
 
 --
 
-. Deploy the message broker
+. [[skupper-example-activemq_READMEmd_item3]]Deploy the message broker
 +
 --
 
@@ -125,7 +140,7 @@ deployment.apps/broker created
 
 --
 
-. Create your sites
+. [[skupper-example-activemq_READMEmd_item4]]Create your sites
 +
 --
 
@@ -185,7 +200,7 @@ As you move through the steps below, you can use `skupper status` at any time to
 
 --
 
-. Link your sites
+. [[skupper-example-activemq_READMEmd_item5]]Link your sites
 +
 --
 
@@ -241,7 +256,7 @@ By default, tokens expire after a single use or 15 minutes after creation.
 
 --
 
-. Expose the message broker
+. [[skupper-example-activemq_READMEmd_item6]]Expose the message broker
 +
 --
 
@@ -282,7 +297,7 @@ broker   ClusterIP   10.100.58.95   <none>        5672/TCP   2s
 
 --
 
-. Run the client
+. [[skupper-example-activemq_READMEmd_item7]]Run the client
 +
 --
 

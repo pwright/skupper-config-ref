@@ -42,7 +42,30 @@ kamel install
 .Procedure
 --
 
-. Configure separate console sessions
+
+* xref:skupper-example-camel-integration_READMEmd_item1[Configure separate console sessions]
+
+* xref:skupper-example-camel-integration_READMEmd_item2[Access your clusters]
+
+* xref:skupper-example-camel-integration_READMEmd_item3[Set up your namespaces]
+
+* xref:skupper-example-camel-integration_READMEmd_item4[Install Skupper in your namespaces]
+
+* xref:skupper-example-camel-integration_READMEmd_item5[Check the status of your namespaces]
+
+* xref:skupper-example-camel-integration_READMEmd_item6[Link your namespaces]
+
+* xref:skupper-example-camel-integration_READMEmd_item7[Deploy and expose the database in the private cluster]
+
+* xref:skupper-example-camel-integration_READMEmd_item8[Create the table to store the tweets]
+
+* xref:skupper-example-camel-integration_READMEmd_item9[Deploy Twitter Camel Integration in the public cluster]
+
+* xref:skupper-example-camel-integration_READMEmd_item10[Deploy Telegram Camel integration in the public cluster]
+
+* xref:skupper-example-camel-integration_READMEmd_item11[Test the application]
+
+. [[skupper-example-camel-integration_READMEmd_item1]]Configure separate console sessions
 +
 --
 
@@ -81,7 +104,7 @@ export KUBECONFIG=~/.kube/config-public2
 
 --
 
-. Access your clusters
+. [[skupper-example-camel-integration_READMEmd_item2]]Access your clusters
 +
 --
 
@@ -99,7 +122,7 @@ See the following links for more information:
 
 --
 
-. Set up your namespaces
+. [[skupper-example-camel-integration_READMEmd_item3]]Set up your namespaces
 +
 --
 
@@ -132,7 +155,7 @@ kubectl config set-context --current --namespace public2
 
 --
 
-. Install Skupper in your namespaces
+. [[skupper-example-camel-integration_READMEmd_item4]]Install Skupper in your namespaces
 +
 --
 
@@ -164,7 +187,7 @@ skupper init
 
 --
 
-. Check the status of your namespaces
+. [[skupper-example-camel-integration_READMEmd_item5]]Check the status of your namespaces
 +
 --
 
@@ -203,7 +226,7 @@ As you move through the steps below, you can use `skupper status` at any time to
 
 --
 
-. Link your namespaces
+. [[skupper-example-camel-integration_READMEmd_item6]]Link your namespaces
 +
 --
 
@@ -249,7 +272,7 @@ If your console sessions are on different machines, you may need to use `scp` or
 
 --
 
-. Deploy and expose the database in the private cluster
+. [[skupper-example-camel-integration_READMEmd_item7]]Deploy and expose the database in the private cluster
 +
 --
 
@@ -266,7 +289,7 @@ skupper expose deployment postgres --address postgres --port 5432 -n private1
 
 --
 
-. Create the table to store the tweets
+. [[skupper-example-camel-integration_READMEmd_item8]]Create the table to store the tweets
 +
 --
 
@@ -282,7 +305,7 @@ CREATE TABLE tw_feedback (id uuid DEFAULT uuid_generatev4 (),sigthning VARCHAR(2
 
 --
 
-. Deploy Twitter Camel Integration in the public cluster
+. [[skupper-example-camel-integration_READMEmd_item9]]Deploy Twitter Camel Integration in the public cluster
 +
 --
 
@@ -300,7 +323,7 @@ src/main/resources/scripts/setUpPublic1Cluster.sh
 
 --
 
-. Deploy Telegram Camel integration in the public cluster
+. [[skupper-example-camel-integration_READMEmd_item10]]Deploy Telegram Camel integration in the public cluster
 +
 --
 
@@ -317,7 +340,7 @@ src/main/resources/scripts/setUpPublic2Cluster.sh
 
 --
 
-. Test the application
+. [[skupper-example-camel-integration_READMEmd_item11]]Test the application
 +
 --
 

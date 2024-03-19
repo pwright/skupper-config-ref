@@ -23,7 +23,22 @@ Prerequisites
 .Procedure
 --
 
-. Install the Skupper command-line tool
+
+* xref:skupper-example-ftp_READMEmd_item1[Install the Skupper command-line tool]
+
+* xref:skupper-example-ftp_READMEmd_item2[Set up your namespaces]
+
+* xref:skupper-example-ftp_READMEmd_item3[Deploy the FTP server]
+
+* xref:skupper-example-ftp_READMEmd_item4[Create your sites]
+
+* xref:skupper-example-ftp_READMEmd_item5[Link your sites]
+
+* xref:skupper-example-ftp_READMEmd_item6[Expose the FTP server]
+
+* xref:skupper-example-ftp_READMEmd_item7[Run the FTP client]
+
+. [[skupper-example-ftp_READMEmd_item1]]Install the Skupper command-line tool
 +
 --
 
@@ -44,7 +59,7 @@ sudo dnf install skupper-cli
 
 --
 
-. Set up your namespaces
+. [[skupper-example-ftp_READMEmd_item2]]Set up your namespaces
 +
 --
 
@@ -93,7 +108,7 @@ kubectl config set-context --current --namespace private
 
 --
 
-. Deploy the FTP server
+. [[skupper-example-ftp_READMEmd_item3]]Deploy the FTP server
 +
 --
 
@@ -116,7 +131,7 @@ deployment.apps/ftp-server created
 
 --
 
-. Create your sites
+. [[skupper-example-ftp_READMEmd_item4]]Create your sites
 +
 --
 
@@ -176,7 +191,7 @@ As you move through the steps below, you can use `skupper status` at any time to
 
 --
 
-. Link your sites
+. [[skupper-example-ftp_READMEmd_item5]]Link your sites
 +
 --
 
@@ -232,7 +247,7 @@ By default, tokens expire after a single use or 15 minutes after creation.
 
 --
 
-. Expose the FTP server
+. [[skupper-example-ftp_READMEmd_item6]]Expose the FTP server
 +
 --
 
@@ -255,7 +270,7 @@ deployment ftp-server exposed as ftp-server
 
 --
 
-. Run the FTP client
+. [[skupper-example-ftp_READMEmd_item7]]Run the FTP client
 +
 --
 
