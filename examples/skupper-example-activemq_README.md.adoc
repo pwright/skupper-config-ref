@@ -54,7 +54,7 @@ Prerequisites
 This example uses the Skupper command-line tool to deploy Skupper.
 You need to install the `skupper` command only once for each development environment.
 
-See the SkupperInstallBookLink for details about installing the CLI. For configured systems, use the following command:
+See the {SkupperInstallBookLink} for details about installing the CLI. For configured systems, use the following command:
 
 [,shell]
 ----
@@ -144,7 +144,7 @@ deployment.apps/broker created
 +
 --
 
-A Skupper site is a location where components of your application are running.
+A Skupper _site is a location where components of your application are running.
 Sites are linked together to form a network for your application.
 In Kubernetes, a site is associated with a namespace.
 
@@ -204,7 +204,7 @@ As you move through the steps below, you can use `skupper status` at any time to
 +
 --
 
-A Skupper link is a channel for communication between two sites.
+A Skupper _link is a channel for communication between two sites.
 Links serve as a transport for application connections and requests.
 
 Creating a link requires use of two `skupper` commands in conjunction, `skupper token create` and `skupper link create`.
@@ -213,7 +213,7 @@ The `skupper token create` command generates a secret token that signifies permi
 The token also carries the link details.
 Then, in a remote site, The `skupper link create` command uses the token to create a link to the site that generated it.
 
-NOTE: The link token is truly a secret.
+NOTE: The link token is truly a _secret.
 Anyone who has the token can link to your site.
 Make sure that only those you trust have access to it.
 
@@ -315,10 +315,10 @@ Sample output:
 [,console]
 ----
 $ kubectl run client --attach --rm --restart Never --image quay.io/skupper/activemq-example-client --env SERVER=broker
-  ____  __  _____   ___  __ ____  ____
- --/ __ \/ / / / _ | / _ \/ //_/ / / / /
- -/ /_/ / /_/ / __ |/ , / ,< / // /\ \
---\___\_\____/_/ |_/_/|_/_/|_|\____/_/
+  ____  __  _____   ___  __ ____  _____
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / _/
+ -/ /_/ / /_/ / __ |/ , _/ ,< / // /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/__/
 2022-05-27 11:19:07,149 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16201: AMQP broker configured to broker:5672 for channel incoming-messages
 2022-05-27 11:19:07,170 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16201: AMQP broker configured to broker:5672 for channel outgoing-messages
 2022-05-27 11:19:07,198 INFO  [io.sma.rea.mes.amqp] (main) SRMSG16212: Establishing connection with AMQP broker

@@ -54,7 +54,7 @@ Prerequisites
 This example uses the Skupper command-line tool to deploy Skupper.
 You need to install the `skupper` command only once for each development environment.
 
-See the SkupperInstallBookLink for details about installing the CLI. For configured systems, use the following command:
+See the {SkupperInstallBookLink} for details about installing the CLI. For configured systems, use the following command:
 
 [,shell]
 ----
@@ -140,7 +140,7 @@ systemctl --user enable --now podman.socket
 If the `systemctl` command doesn't work, you can try the `podman system service` command instead:
 
 ----
-podman system service --time=0 unix://$XDGRUNTIMEDIR/podman/podman.sock &
+podman system service --time=0 unix://$XDG_RUNTIMEDIR/podman/podman.sock &
 ----
 
 --
@@ -216,7 +216,7 @@ The `skupper token create` command generates a secret token that signifies permi
 The token also carries the link details.
 Then, in a remote site, The `skupper link create` command uses the token to create a link to the site that generated it.
 
-NOTE: The link token is truly a secret.
+NOTE: The link token is truly a _secret.
 Anyone who has the token can link to your site.
 Make sure that only those you trust have access to it.
 

@@ -81,21 +81,21 @@ Since you will be using multiple contexts at once in this exercise, you need to 
 Start a console session for each of your namespaces.
 Set the `KUBECONFIG` environment variable to a different path in each session.
 
-Console for private1:
+Console for _private1:
 
 [,shell]
 ----
 export KUBECONFIG=~/.kube/config-private1
 ----
 
-Console for public1:
+Console for _public1:
 
 [,shell]
 ----
 export KUBECONFIG=~/.kube/config-public1
 ----
 
-Console for public2:
+Console for _public2:
 
 [,shell]
 ----
@@ -129,7 +129,7 @@ See the following links for more information:
 Use `kubectl create namespace` to create the namespaces you wish to use (or use existing namespaces).
 Use `kubectl config set-context` to set the current namespace for each session.
 
-Console for private1:
+Console for _private1:
 
 [,shell]
 ----
@@ -137,7 +137,7 @@ kubectl create namespace private1
 kubectl config set-context --current --namespace private1
 ----
 
-Console for public1:
+Console for _public1:
 
 [,shell]
 ----
@@ -145,7 +145,7 @@ kubectl create namespace public1
 kubectl config set-context --current --namespace public1
 ----
 
-Console for public2:
+Console for _public2:
 
 [,shell]
 ----
@@ -164,21 +164,21 @@ Run the `skupper init` command in each namespace.
 
 
 
-Console for private1:
+Console for _private1:
 
 [,shell]
 ----
 skupper init
 ----
 
-Console for public1:
+Console for _public1:
 
 [,shell]
 ----
 skupper init
 ----
 
-Console for public2:
+Console for _public2:
 
 [,shell]
 ----
@@ -193,21 +193,21 @@ skupper init
 
 Use `skupper status` in each console to check that Skupper is installed.
 
-Console for private1:
+Console for _private1:
 
 [,shell]
 ----
 skupper status
 ----
 
-Console for public1:
+Console for _public1:
 
 [,shell]
 ----
 skupper status
 ----
 
-Console for public2:
+Console for _public2:
 
 [,shell]
 ----
@@ -236,21 +236,21 @@ The `skupper token create` command generates a secret token that signifies permi
 The token also carries the link details.
 Then, in a remote namespace, The `skupper link create` command uses the token to create a link to the namespace that generated it.
 
-NOTE: The link token is truly a secret.
+NOTE: The link token is truly a _secret.
 Anyone who has the token can link to your namespace.
 Make sure that only those you trust have access to it.
 
 First, use `skupper token create` in one namespace to generate the token.
 Then, use `skupper link create` in the other to create a link.
 
-Console for public1:
+Console for _public1:
 
 [,shell]
 ----
 skupper token create ~/public1.token --uses 2
 ----
 
-Console for public2:
+Console for _public2:
 
 [,shell]
 ----
@@ -259,7 +259,7 @@ skupper link status --wait 30
 skupper token create ~/public2.token
 ----
 
-Console for private1:
+Console for _private1:
 
 [,shell]
 ----
@@ -279,7 +279,7 @@ If your console sessions are on different machines, you may need to use `scp` or
 Use `kubectl apply` to deploy the database in `private1`.
 Then expose the deployment.
 
-Console for private1:
+Console for _private1:
 
 [,shell]
 ----
@@ -293,14 +293,14 @@ skupper expose deployment postgres --address postgres --port 5432 -n private1
 +
 --
 
-Console for private1:
+Console for _private1:
 
 [,shell]
 ----
 kubectl run pg-shell -i --tty --image quay.io/skupper/simple-pg --env="PGUSER=postgresadmin" --env="PGPASSWORD=admin123" --env="PGHOST=$(kubectl get service postgres -o=jsonpath='{.spec.clusterIP}')" -- bash
 psql --dbname=postgresdb
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE TABLE tw_feedback (id uuid DEFAULT uuid_generatev4 (),sigthning VARCHAR(255),created TIMESTAMP default CURRENTTIMESTAMP,PRIMARY KEY(id));
+CREATE TABLE tw_feedback (id uuid DEFAULT uuid_generate_v4 (),sigthning VARCHAR(255),created TIMESTAMP default CURRENTTIMESTAMP,PRIMARY KEY(id));
 ----
 
 --
@@ -314,7 +314,7 @@ This component will poll Twitter every 5000 ms for tweets that include the word 
 Subsequently, it will send the results to the `postgresql-sink`, that should be installed in the same cluster as well.
 The kamelet sink will insert the results in the postgreSQL database.
 
-Console for public1:
+Console for _public1:
 
 [,shell]
 ----
@@ -331,7 +331,7 @@ In this step we will install the secret in Kubernetes that contains the database
 After that we will deploy `TelegramRoute` using kamel in the Kubernetes cluster.
 This component will poll the database every 3 seconds and gather the results inserted during the last 3 seconds.
 
-Console for public2:
+Console for _public2:
 
 [,shell]
 ----
@@ -346,7 +346,7 @@ src/main/resources/scripts/setUpPublic2Cluster.sh
 
 To be able to see the whole flow at work, you need to post a tweet containing the word `skupper` and after that you will see a new message in the Telegram channel with the title `New feedback about Skupper`
 
-Console for private1:
+Console for _private1:
 
 [,shell]
 ----
@@ -363,7 +363,7 @@ id                                    | sigthning       |          created
  95655229-747a-4787-8133-923ef0a1b2ca | Testing skupper | 2022-03-10 19:35:08.412542
 ----
 
-Console for public1:
+Console for _public1:
 
 [,shell]
 ----

@@ -43,7 +43,7 @@ regex_mappings:
 
   # find the install material
   - pattern:  ".*use the install script.*"
-    replacement: "See the SkupperInstallBookLink for details about installing the CLI. For configured systems, use the following command:"
+    replacement: "See the {SkupperInstallBookLink} for details about installing the CLI. For configured systems, use the following command:"
 
   # platforms
   - pattern: ".*minikube.*"

@@ -1,5 +1,3 @@
-# Examples
-
 :examplesLink: link:.
 
 include::examples/skupper-example-hello-world_README.md.adoc[leveloffset=1]
